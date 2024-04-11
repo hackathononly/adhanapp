@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PrayerTimeTable from "../components/PrayerTimeTable.astro";
+import Constants from "../constants";
+---
+
+<Layout title="AdhanApp" state={Constants.defaultSettings.waktuSolatState} city={Constants.defaultSettings.waktuSolatCity}>
+		<div class="hero min-h-screen bg-base-200 rounded-lg">
+			<div class="hero-content text-center">
+			  <div class="max-w-md">
+				<h1 class="text-3xl font-bold">Wilayah Persekutuan</h1>
+					<PrayerTimeTable />
+			  </div>
+			</div>
+		  </div>
+</Layout>

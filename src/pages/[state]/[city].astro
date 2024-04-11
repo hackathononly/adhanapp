@@ -1,0 +1,48 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Constants from "../../constants";
+import PrayerTimeTable from "../../components/PrayerTimeTable.astro";
+
+export async function getStaticPaths() {
+  let returnedAry:any = [];
+
+for (const state in Constants.locations) {
+  const location = Constants.locations,
+   cities = location[state as keyof typeof location];
+  for (const city in cities) {
+    returnedAry.push({
+      params: { state, city },
+      props: { cities: Object.entries(cities), location: cities[city as keyof typeof cities] }
+    });
+  }
+}
+  return returnedAry;
+}
+
+const { state } = Astro.params;
+const { cities,location } = Astro.props;
+
+---
+
+<Layout title={state + ' - ' + location} state={state} city={cities}>
+		<div class="hero min-h-screen bg-base-200 rounded-lg">
+	
+			<div class="hero-content text-center">
+			
+			  <div class="max-w-md">
+
+				  <h1 class="text-3xl font-bold">{location}</h1>
+					<PrayerTimeTable />
+<hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
+
+					<div class="form-control">
+						<label class="cursor-pointer label">
+						  <span class="label-text">set as default</span>
+						  <input type="checkbox" checked="checked" class="checkbox checkbox-accent" />
+						</label>
+					  </div>
+
+			  </div>
+			</div>
+		  </div>
+</Layout>

@@ -1,0 +1,81 @@
+---
+import SelectNegeri from "../components/SelectNegeri.astro";
+import SelectDaerah from "../components/SelectDaerah.astro";
+
+const { city, state } = Astro.props;
+const {pathname} = Astro.url;
+
+let isDaerahPage;
+
+// if(pathname === '/')
+// 	isDaerahPage = false;
+// else 
+if (decodeURI(pathname).split('/').length == 2)
+	isDaerahPage = true;
+else
+	isDaerahPage = false;
+
+---
+<main>
+<div class="navbar p-0">
+	<div class="navbar-start">
+		<a class="btn btn-md btn-ghost text-lg" href="/" title="back to home">
+			<span class="flip">↗︎</span>
+		</a>
+		<SelectNegeri />
+	</div>
+	<!-- <div class="navbar-center">
+		<a class="btn btn-ghost text-lg" href="/" title="back to home">
+			adhanApp
+			<span class="flip">↗︎</span>
+		</a>
+	</div> -->
+	<div class="navbar-end">
+{!isDaerahPage?
+		<!-- start toggle -->
+		<div class="form-control">
+			<label class="cursor-pointer label">
+				<input
+					name="toggledaerah"
+					type="checkbox"
+					title="toggle daerah"
+					checked="checked"
+					class="checkbox checkbox-accent"
+				/>
+				<!-- <span class="label-text">toggle daerah</span> -->
+			</label>
+		</div>
+		<!-- end toggle -->
+		:''}
+	</div>
+</div>
+
+{!isDaerahPage ? <SelectDaerah state={state} cities={city} /> : ''}
+</main>
+
+<script>
+	import type { WritableAtom } from "nanostores";
+import { isOpen } from "../store";
+
+	function setStateVal(stateName: WritableAtom<boolean>, val: boolean) {
+		stateName.set(val);
+	}
+
+	const currentPathname = new URL(document.location.href).pathname,
+		currentCityCode = currentPathname.split('/')[2],
+		checkbox = document.querySelector('[name="toggledaerah"]') as HTMLInputElement;
+
+	if(currentCityCode){
+		checkbox.classList.remove('hidden');
+	} else {
+		checkbox.classList.add('hidden');
+	}
+
+	checkbox.addEventListener("change", function () {
+		if (this.checked) {
+			setStateVal(isOpen, true);
+		} else {
+			setStateVal(isOpen, false);
+		}
+	});
+</script>
