@@ -23,10 +23,11 @@ for (const state in Constants.locations) {
 const { state } = Astro.params;
 const { cities,location } = Astro.props;
 
+const citiesArray: any[] = cities;
 ---
 
 <Layout title={state + ' - ' + location} state={state} city={cities}>
-	{cities.length>1 ? <section class="bg-base-200">
+	{citiesArray.length>1 ? <section class="bg-base-200">
 		<div class="nav my-0">
 			<hr class="h-px border-0 dark:bg-gray-700" />
 			<div tabindex="0" class="collapse collapse-arrow">

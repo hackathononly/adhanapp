@@ -1,18 +1,15 @@
 ---
 import SelectNegeri from "../components/SelectNegeri.astro";
 
-const { city, state } = Astro.props;
-const {pathname} = Astro.url;
+// const { city, state } = Astro.props;
+// const {pathname} = Astro.url;
 
-let isDaerahPage;
+// let isDaerahPage;
 
-// if(pathname === '/')
+// if (decodeURI(pathname).split('/').length == 2)
+// 	isDaerahPage = true;
+// else
 // 	isDaerahPage = false;
-// else 
-if (decodeURI(pathname).split('/').length == 2)
-	isDaerahPage = true;
-else
-	isDaerahPage = false;
 
 ---
 <main class="bg-base-200">
