@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Constants from "../../constants";
 import PrayerTimeTable from "../../components/PrayerTimeTable.astro";
+import SelectDaerah from "../../components/SelectDaerah.astro";
 
 export async function getStaticPaths() {
   let returnedAry:any = [];
@@ -25,23 +26,49 @@ const { cities,location } = Astro.props;
 ---
 
 <Layout title={state + ' - ' + location} state={state} city={cities}>
-		<div class="hero min-h-screen bg-base-200 rounded-lg">
-	
+	{cities.length>1 ? <section class="bg-base-200">
+		<div class="nav my-0">
+			<hr class="h-px border-0 dark:bg-gray-700" />
+			<div tabindex="0" class="collapse collapse-arrow">
+				<div class="collapse-title text-sm flex items-center">
+					Lokasi lain di {state}
+				</div>
+				<div class="p-0 collapse-content overflow-y-auto">
+					<SelectDaerah state={state} cities={cities} />
+				</div>
+			  </div>
+			  </div>
+	</section>: ''}
+
+
+		<div class="hero min-h-screen">
+			<!-- <div class="divider divider-start text-base">
+				<div class="form-control">
+					<label class="cursor-pointer label">
+						<input
+							name="toggledaerah"
+							type="checkbox"
+							title="toggle daerah"
+							checked="checked"
+							class="checkbox checkbox-sm checkbox-accent"
+						/>
+						<span class="label-text ml-4">toggle daerah</span>
+					</label>
+		</div>
+				</div> -->
 			<div class="hero-content text-center">
 			
 			  <div class="max-w-md">
+<!-- <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
+				<div class="form-control">
+					<label class="cursor-pointer label">
+					  <span class="label-text">set as default</span>
+					  <input type="checkbox" checked="checked" class="checkbox checkbox-accent checkbox-xs" />
+					</label>
+				  </div> -->
 
-				  <h1 class="text-3xl font-bold">{location}</h1>
+				  <h1 class="text-3xl font-bold p-6">{location}</h1>
 					<PrayerTimeTable />
-<hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
-
-					<div class="form-control">
-						<label class="cursor-pointer label">
-						  <span class="label-text">set as default</span>
-						  <input type="checkbox" checked="checked" class="checkbox checkbox-accent" />
-						</label>
-					  </div>
-
 			  </div>
 			</div>
 		  </div>

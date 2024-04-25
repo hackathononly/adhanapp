@@ -24,9 +24,8 @@ const { cities } = Astro.props;
 ---
 
 <Layout title={state} state={state} city={cities}>
-		<div class="divider">Pilih lokasi</div>
-
-		<div class="pt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+		<!-- <div class="divider text-base">Pilih lokasi</div> -->
+		<div class="p-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
 
 
 			{(cities as []).map((el: any) => 
@@ -35,7 +34,7 @@ const { cities } = Astro.props;
 
 
 				  <div class='stat-title'}>{el[0]}
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+					<!--<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> -->
 					</div>
 
 

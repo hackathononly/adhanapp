@@ -1,11 +1,28 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PrayerTimeTable from "../components/PrayerTimeTable.astro";
+import SelectDaerah from "../components/SelectDaerah.astro";
 import Constants from "../constants";
+
+const state = Constants.defaultSettings.waktuSolatState || 'get state from localstorage',
+	city = Constants.defaultSettings.waktuSolatCity || 'get waktusolat from localstorage';
 ---
 
-<Layout title="AdhanApp" state={Constants.defaultSettings.waktuSolatState} city={Constants.defaultSettings.waktuSolatCity}>
-		<div class="hero min-h-screen bg-base-200 rounded-lg">
+<Layout title="AdhanApp" state={state} city={city}>
+	<section class="bg-base-200">
+		<div class="nav my-0">
+			<hr class="h-px border-0 dark:bg-gray-700" />
+			<div tabindex="0" class="collapse collapse-arrow">
+				<div class="collapse-title text-sm flex items-center">
+					Lokasi lain di {state}
+				</div>
+				<div class="p-0 collapse-content overflow-y-auto">
+					<SelectDaerah state={state} cities={city} />
+				</div>
+			  </div>
+			  </div>
+	</section>
+		<div class="hero min-h-screen rounded-lg">
 			<div class="hero-content text-center">
 			  <div class="max-w-md">
 				<h1 class="text-3xl font-bold">Wilayah Persekutuan</h1>

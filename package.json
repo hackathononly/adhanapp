@@ -7,22 +7,23 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fmt": "./node_modules/prettier/bin/prettier.cjs --write ."
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
-    "@astrojs/mdx": "^2.2.2",
-    "@astrojs/sitemap": "^3.1.2",
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/sitemap": "^3.1.4",
     "@astrojs/tailwind": "^5.1.0",
-    "@sentry/astro": "^7.108.0",
-    "@spotlightjs/astro": "^1.0.18",
-    "astro": "^4.5.10",
-    "nanostores": "^0.10.2",
+    "@sentry/astro": "^7.112.2",
+    "@spotlightjs/astro": "^1.0.20",
+    "astro": "^4.7.0",
+    "nanostores": "^0.10.3",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "daisyui": "^4.9.0",
+    "daisyui": "^4.10.2",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0"
   }
