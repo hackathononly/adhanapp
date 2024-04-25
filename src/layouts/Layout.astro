@@ -80,9 +80,15 @@ const { title, state, city } = Astro.props;
 		width: 1200px;
 		max-width: calc(100% - 2rem);
 	}
-	.flip {
+	main .subnav{
+		top: 0;
+		z-index: 1;
+		position: sticky;
+	}
+
+	/* .flip {
 		display: inline-block;
 		-webkit-transform: scaleX(-1);
 		transform: scaleX(-1);
-	}
+	} */
 </style>
