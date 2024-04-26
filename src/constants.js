@@ -49,7 +49,8 @@ const Constants = {
   defaultSettings: {
     waktuSolatStateCode: "WLY01",
     waktuSolatState: "Wilayah Persekutuan",
-    waktuSolatCity: [
+	waktuSolatCity: "Kuala Lumpur, Putrajaya",
+    waktuSolatCityArray: [
       ["WLY01", "Kuala Lumpur, Putrajaya"],
       ["WLY02", "Labuan "],
     ],
