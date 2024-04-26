@@ -22,7 +22,7 @@ const { title, state, city } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="min-h-screen">
+	<body class="min-h-screen" tabindex="0">
 		<Navigation city={city} state={state} />
 		<main>
 			<slot />
