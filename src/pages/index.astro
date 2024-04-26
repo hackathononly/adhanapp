@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PrayerTimeTable from "../components/PrayerTimeTable.astro";
+import SelectNegeri from "../components/SelectNegeri.astro";
 import SelectDaerah from "../components/SelectDaerah.astro";
 import Constants from "../constants";
 
@@ -9,13 +10,26 @@ const state = Constants.defaultSettings.waktuSolatState || 'get state from local
 ---
 
 <Layout title="AdhanApp" state={state} city={city}>
-	<section class="bg-base-200">
+	<!-- <section class="bg-base-200">
 		<div class="nav my-0">
 			<hr class="h-px border-0 dark:bg-gray-700" />
 			<div tabindex="0" class="collapse collapse-arrow">
 				<div class="collapse-title text-sm flex items-center">
 					Lokasi lain di {state}
 				</div>
+				<div class="p-0 collapse-content overflow-y-auto">
+					<SelectDaerah state={state} cities={city} />
+				</div>
+			  </div>
+			  </div>
+	</section> -->
+	<section class="subnav bg-base-200">
+		<div class="nav my-0">
+			<SelectNegeri />
+			<!--<hr class="h-px border-0 dark:bg-gray-700" /> -->
+			<div tabindex="0" class="collapse collapse-arrow">
+				<div class="collapse-title text-sm flex items-center">
+			</div>
 				<div class="p-0 collapse-content overflow-y-auto">
 					<SelectDaerah state={state} cities={city} />
 				</div>

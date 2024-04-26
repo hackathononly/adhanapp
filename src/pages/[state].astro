@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Constants from "../constants.js";
+import SelectNegeri from "../components/SelectNegeri.astro";
 
 export async function getStaticPaths() {
   let returnedAry:any = [];
@@ -25,15 +26,22 @@ const { cities } = Astro.props;
 
 <Layout title={state} state={state} city={cities}>
 		<!-- <div class="divider text-base">Pilih lokasi</div> -->
-		<div class="p-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-
-
+		<section class="subnav bg-base-200">
+			<div class="nav my-0">
+				<SelectNegeri />
+				<!--<hr class="h-px border-0 dark:bg-gray-700" /> -->
+				<div tabindex="0">
+					<div class="collapse-title text-sm flex items-center"></div>
+				</div>
+			</div>
+		</section>
+		<div class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
 			{(cities as []).map((el: any) => 
 				<div class="stat rounded-lg bg-base-200 overflow-hidden shadow-lg2">
 					<a href={'/' + state + '/' + el[0]}>
 
 
-				  <div class='stat-title'}>{el[0]}
+				  <div class='stat-title'>{el[0]}
 					<!--<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> -->
 					</div>
 
