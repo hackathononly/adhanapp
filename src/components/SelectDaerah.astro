@@ -21,7 +21,7 @@ const currentCityCode = pathname.split('/')[2];
 		<a href={'/' + state + '/' + el[0]}>
 
 	  <div class={el.indexOf(currentCityCode)==0 ?'stat-title selected': 'stat-title'}>{el[0]}</div>
-	  <div class={el.indexOf(currentCityCode)==0 ?'stat-desc selected text-wrap w-48': 'stat-desc text-wrap w-48'}>{el[1]}</div>
+	  <div class={el.indexOf(currentCityCode)==0 ?'stat-desc selected flex-initial break-words': 'stat-desc flex-initial break-words'}>{el[1]}</div>
 	</div>
 		</a>
 		)}
