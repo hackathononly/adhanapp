@@ -1,39 +1,58 @@
 ---
-const { state , cities} = Astro.props;
+const { state, cities } = Astro.props;
 
-const {pathname} = Astro.url;
-const currentCityCode = pathname.split('/')[2];
-
+const { pathname } = Astro.url;
+const currentCityCode = pathname.split("/")[2];
 ---
 
 <div id="daerahList">
 	<!-- <div class="divider"> -->
-		<!-- Lokasi lain di {state} -->
-		<!-- Lokasi utama lain -->
-		<!-- Pautan ke lokasi utama -->
-		<!-- Pilih lokasi -->
+	<!-- Lokasi lain di {state} -->
+	<!-- Lokasi utama lain -->
+	<!-- Pautan ke lokasi utama -->
+	<!-- Pilih lokasi -->
 	<!-- </div> -->
-	
+
 	<div class="overflow-y-auto w-max">
-<div class="stats shadow">
-	{cities.map((el: any) => 
-	<div class="stat">
-		<a href={'/' + state + '/' + el[0]}>
-
-	  <div class={el.indexOf(currentCityCode)==0 ?'stat-title selected': 'stat-title'}>{el[0]}</div>
-	  <div class={el.indexOf(currentCityCode)==0 ?'stat-desc selected flex-initial break-words': 'stat-desc flex-initial break-words'}>{el[1]}</div>
+		<div class="stats shadow">
+			{
+				cities.map((el: any) => (
+					<div class="stat">
+						<a href={"/" + state + "/" + el[0]}>
+							<div
+								class={
+									el.indexOf(currentCityCode) == 0
+										? "stat-title selected"
+										: "stat-title"
+								}
+							>
+								{el[0]}
+							</div>
+							<div
+								class={
+									el.indexOf(currentCityCode) == 0
+										? "w-40 text-xs selected flex-initial break-words text-gray-400"
+										: "w-40 text-xs flex-initial break-words text-gray-400"
+								}
+							>
+								{el[1]}
+							</div>
+						</a>
+					</div>
+				))
+			}
+		</div>
 	</div>
-		</a>
-		)}
-	
-  </div>
-</div>
 </div>
 
-  <style>.selected{color: white}</style>
-  <script>
+<style>
+	.selected {
+		color: white;
+	}
+</style>
+<script>
 	// import { isOpen } from '../store.js';
-  
+
 	// const daerahList = document.getElementById('daerahList') as HTMLInputElement;
 
 	// isOpen.subscribe(open => {
@@ -43,4 +62,4 @@ const currentCityCode = pathname.split('/')[2];
 	// 	daerahList.classList.add('hidden');
 	//   }
 	// })
-  </script>
+</script>

@@ -11,19 +11,19 @@
     "fmt": "./node_modules/prettier/bin/prettier.cjs --write ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.5.10",
-    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/mdx": "^3.0.0",
     "@astrojs/sitemap": "^3.1.4",
     "@astrojs/tailwind": "^5.1.0",
-    "@sentry/astro": "^7.112.2",
+    "@sentry/astro": "^8.0.0",
     "@spotlightjs/astro": "^1.0.20",
-    "astro": "^4.7.0",
+    "astro": "^4.8.3",
     "nanostores": "^0.10.3",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "daisyui": "^4.10.2",
+    "daisyui": "^4.11.1",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0"
   }

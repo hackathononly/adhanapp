@@ -3,25 +3,61 @@ import Constants from "../constants";
 
 const { pathname } = Astro.url;
 
-const negeriLabel = pathname !== '/' ? decodeURI(pathname).split('/')[1].replace('/', '') : Constants.defaultSettings.waktuSolatState;
+const negeriLabel =
+	pathname !== "/"
+		? decodeURI(pathname).split("/")[1].replace("/", "")
+		: Constants.defaultSettings.waktuSolatState;
 
+// Object.values(Constants.locations).map((el: any) =>
+// 	console.log(el, pathname, Object.keys(el)[0])
+// );
+
+Object.keys(Constants.locations).map((el: any) => {
+	// console.log(el, Object.values(Constants.locations))
+	// const p = Object.values(Constants.locations);
+	// console.log('dsad',p);
+	// console.log('d', el, negeriLabel);
+	if (negeriLabel == el) {
+		// const d = String(el);
+		// console.log(d);
+		console.log(Constants.locations);
+	}
+});
 ---
 
-  <div class="dropdown absolute z-10 top-0.5">
-	<div tabindex="0" role="button" class="btn btn-ghost m-1">{negeriLabel}<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-		<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-	  </svg>	  
-    </div>
-	<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52">
-		{Object.keys(Constants.locations).map((el: any) => 
-			<li><a href={'/' + el}>{el}</a></li>
-			)}
+<div class="dropdown absolute z-10 top-0.5">
+	<div tabindex="0" role="button" class="btn btn-ghost m-1">
+		{negeriLabel}<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			class="w-6 h-6"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"></path>
+		</svg>
+	</div>
+	<ul
+		tabindex="0"
+		class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
+	>
+		{
+			Object.keys(Constants.locations).map((el: any) => (
+				<li>
+					<a href={"/" + el}>{el}</a>
+				</li>
+			))
+		}
 	</ul>
-  </div>
+</div>
 
-  <!-- <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"> -->
+<!-- <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"> -->
 
-  <!-- <div class="divider divider-start">
+<!-- <div class="divider divider-start">
 	{negeriLabel}
 	<div class="dropdown dropdown-start">
 	  <div tabindex="0" role="button" class="btn btn-circle btn-ghost btn-md text-info">
@@ -40,3 +76,4 @@ const negeriLabel = pathname !== '/' ? decodeURI(pathname).split('/')[1].replace
 	  </div>
 	</div>
 </div> -->
+
