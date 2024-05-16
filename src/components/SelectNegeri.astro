@@ -25,6 +25,59 @@ Object.keys(Constants.locations).map((el: any) => {
 });
 ---
 
+<!-- Open the modal using ID.showModal() method -->
+<button
+	class="btn absolute z-10 top-0.5 btn-ghost m-1"
+	onclick="my_modal_1.showModal()"
+>
+	{negeriLabel}<svg
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		viewBox="0 0 24 24"
+		stroke-width="1.5"
+		stroke="currentColor"
+		class="w-6 h-6"
+	>
+		<path
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"></path>
+	</svg>
+</button>
+<dialog id="my_modal_1" class="modal">
+	<div class="modal-box">
+		<ul tabindex="0" class="menu">
+			{
+				Object.keys(Constants.locations).map((el: any) => (
+					<li>
+						<a href={"/" + el}>{el}</a>
+					</li>
+				))
+			}
+		</ul>
+		<div class="modal-action absolute mt-0 top-2 right-2">
+			<form method="dialog">
+				<!-- if there is a button in form, it will close the modal -->
+				<button class="btn btn-circle"
+					><svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						><path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 18L18 6M6 6l12 12"></path></svg
+					></button
+				>
+			</form>
+		</div>
+	</div>
+</dialog>
+
+<!--
 <div class="dropdown absolute z-10 top-0.5">
 	<div tabindex="0" role="button" class="btn btn-ghost m-1">
 		{negeriLabel}<svg
@@ -54,6 +107,7 @@ Object.keys(Constants.locations).map((el: any) => {
 		}
 	</ul>
 </div>
+-->
 
 <!-- <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"> -->
 
@@ -76,4 +130,3 @@ Object.keys(Constants.locations).map((el: any) => {
 	  </div>
 	</div>
 </div> -->
-
