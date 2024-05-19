@@ -2,27 +2,12 @@
 import mainData from "../../public/prayertime/2024.json";
 import Constants from "../constants";
 
-// @ today prayer time
 const { city } = Astro.params,
  currentCityCode = city ? city : Constants.defaultSettings.waktuSolatStateCode,
  allWaktuSolat = mainData.data.data[0];
 
-// Get the current date
 const currentDate = new Date(),
- monthNames = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
- ],
+ monthNames = Object.values(Constants.monthMalay),
  dd = String(currentDate.getDate()).padStart(2, "0"),
  month = monthNames[currentDate.getMonth()],
  year = currentDate.getFullYear(),
@@ -38,7 +23,7 @@ function findPrayerTimeByZoneAndDate(data: any, zone: any, date: string) {
    }
   }
  }
- return null; // Return null if zone or date is not found
+ return null;
 }
 
 const waktuSolat = findPrayerTimeByZoneAndDate(
@@ -46,68 +31,10 @@ const waktuSolat = findPrayerTimeByZoneAndDate(
  currentCityCode,
  formattedDate,
 );
-const { hijri, date, day, ...filteredObject } = waktuSolat;
-const formattedTimeObject: { [key: string]: any } = {};
-for (const key in filteredObject) {
- if (Object.hasOwnProperty.call(filteredObject, key)) {
-  const timeString = filteredObject[key];
-  const timeComponents = timeString.split(":");
 
-  // Create a Date object and set the time
-  const date = new Date();
-  date.setHours(parseInt(timeComponents[0]));
-  date.setMinutes(parseInt(timeComponents[1]));
-  date.setSeconds(parseInt(timeComponents[2]));
-
-  // Format the time to AM/PM format
-  const formattedTime = date.toLocaleTimeString("en-US", { hour12: true });
-
-  formattedTimeObject[key] = formattedTime;
- }
-}
-
-// Get current time
-const currentTime = currentDate.getTime();
-
-// Convert each time value to timestamp and calculate the difference
-let closestTime: string;
-let minDifference = Infinity;
-
-for (const key in filteredObject) {
- if (Object.hasOwnProperty.call(filteredObject, key)) {
-  const timeString = filteredObject[key];
-  const [hours, minutes, seconds] = timeString.split(/:| /);
-  let time = new Date();
-  time.setHours(hours);
-  time.setMinutes(minutes);
-  time.setSeconds(seconds);
-  const timeValue = time.getTime();
-  const difference = Math.abs(currentTime - timeValue);
-  if (difference < minDifference) {
-   minDifference = difference;
-   closestTime = key;
-  }
- }
-}
+const { hijri, date, day, ...filteredObject } = waktuSolat; // exclude hijri, date, day
 ---
 
-<hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-<div class="flex justify-evenly items-center">
- <small>{hijri}, {date}, {day}</small>
- <svg
-  xmlns="http://www.w3.org/2000/svg"
-  fill="none"
-  viewBox="0 0 24 24"
-  class="inline-block w-5 h-5 text-orange-300 stroke-current"
-  ><path
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   stroke-width="2"
-   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-  ></path></svg
- >
-</div>
-<hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
 <div class="overflow-x-auto">
  <table class="table table-lg">
   <thead>
@@ -119,12 +46,9 @@ for (const key in filteredObject) {
   <tbody>
    {
     Object.entries(filteredObject).map(([key, value]) => (
-     // Object.entries(formattedTimeObject).map(([key, value]) => (
      <tr>
-      <td class={key == closestTime ? "currentPrayerTime" : ""}>{key}</td>
-      <td
-       class={value == filteredObject[closestTime] ? "currentPrayerTime" : ""}
-      >
+      <td>{key}</td>
+      <td>
        <time>{value}</time>
       </td>
      </tr>

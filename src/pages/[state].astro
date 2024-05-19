@@ -21,21 +21,10 @@ for (const state in Constants.locations) {
 
 const { state } = Astro.params;
 const { cities } = Astro.props;
-// console.log('st', state);
 
 ---
 
 <Layout title={state} state={state} city={cities}>
-		<!-- <div class="divider text-base">Pilih lokasi</div> -->
-		<section class="subnav bg-base-200">
-			<div class="nav my-0">
-				<SelectNegeri />
-				<!--<hr class="h-px border-0 dark:bg-gray-700" /> -->
-				<div tabindex="0">
-					<div class="collapse-title text-sm flex items-center"></div>
-				</div>
-			</div>
-		</section>
 		<div class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
 			{(cities as []).map((el: any) => 
 				<div class="stat rounded-lg bg-base-200 overflow-hidden shadow-lg2">

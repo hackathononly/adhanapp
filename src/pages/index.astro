@@ -1,8 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PrayerTimeTable from "../components/PrayerTimeTable.astro";
-import SelectNegeri from "../components/SelectNegeri.astro";
-import SelectDaerah from "../components/SelectDaerah.astro";
 import Constants from "../constants";
 
 const state =
@@ -16,23 +14,31 @@ const state =
 ---
 
 <Layout title="AdhanApp" state={state} city={cities}>
-	<section class="subnav bg-base-200">
-		<div class="nav my-0">
-			<SelectNegeri />
-			<div tabindex="0" class="collapse collapse-arrow">
-				<div class="collapse-title text-sm flex items-center"></div>
-				<div class="p-0 collapse-content overflow-y-auto">
-					<SelectDaerah state={state} cities={cities} />
-				</div>
+	<div
+		class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5"
+	>
+		<div>
+			<h1 class="text-center text-xl font-bold">{city}</h1>
+			<hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+			<div class="flex justify-evenly items-center">
+				<!--			<small>{hijri}, {date}, {day}</small>-->
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					class="inline-block w-5 h-5 text-orange-300 stroke-current"
+					><path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+					></path></svg
+				>
 			</div>
+			<hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
 		</div>
-	</section>
-	<div class="hero min-h-screen rounded-lg">
-		<div class="hero-content text-center">
-			<div class="max-w-md">
-				<h1 class="text-2xl font-bold p-6">{city}</h1>
-				<PrayerTimeTable />
-			</div>
+		<div>
+			<PrayerTimeTable />
 		</div>
 	</div>
 </Layout>

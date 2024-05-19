@@ -2,8 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Constants from "../../constants";
 import PrayerTimeTable from "../../components/PrayerTimeTable.astro";
-import SelectNegeri from "../../components/SelectNegeri.astro";
-import SelectDaerah from "../../components/SelectDaerah.astro";
+import mainData from "../../../public/prayertime/2024.json";
 
 export async function getStaticPaths() {
 	let returnedAry: any = [];
@@ -24,52 +23,98 @@ export async function getStaticPaths() {
 	return returnedAry;
 }
 
-const { state } = Astro.params;
+const { city, state } = Astro.params;
 const { cities, location } = Astro.props;
+
+const currentCityCode = city
+		? city
+		: Constants.defaultSettings.waktuSolatStateCode,
+	allWaktuSolat = mainData.data.data[0];
+
+const currentDate = new Date(),
+	monthNames = Object.values(Constants.monthMalay),
+	dd = String(currentDate.getDate()).padStart(2, "0"),
+	month = monthNames[currentDate.getMonth()],
+	year = currentDate.getFullYear(),
+	formattedDate = `${dd}-${month}-${year}`;
+
+function findPrayerTimeByZoneAndDate(data: any, zone: any, date: string) {
+	for (const row of data.rows) {
+		if (row.zone === zone) {
+			for (const prayerTime of row.prayerTime) {
+				if (prayerTime.date === date) {
+					return prayerTime;
+				}
+			}
+		}
+	}
+	return null; // Return null if zone or date is not found
+}
+
+const waktuSolat = findPrayerTimeByZoneAndDate(
+	allWaktuSolat,
+	currentCityCode,
+	formattedDate,
+);
+
+const { hijri, date, day, ...filteredObject } = waktuSolat;
+const formattedTimeObject: { [key: string]: any } = {};
+
+for (const key in filteredObject) {
+	if (Object.hasOwnProperty.call(filteredObject, key)) {
+		const timeString = filteredObject[key];
+		const timeComponents = timeString.split(":");
+
+		// Create a Date object and set the time
+		const date = new Date();
+		date.setHours(parseInt(timeComponents[0]));
+		date.setMinutes(parseInt(timeComponents[1]));
+		date.setSeconds(parseInt(timeComponents[2]));
+
+		// Format the time to AM/PM format
+		const formattedTime = date.toLocaleTimeString("en-US", { hour12: true });
+
+		formattedTimeObject[key] = formattedTime;
+	}
+}
+
+// Get current time
+const currentTime = currentDate.getTime();
+
+// Convert each time value to timestamp and calculate the difference
+let closestTime: string;
+let minDifference = Infinity;
+
+for (const key in filteredObject) {
+	if (Object.hasOwnProperty.call(filteredObject, key)) {
+		const timeString = filteredObject[key];
+		const [hours, minutes, seconds] = timeString.split(/:| /);
+		let time = new Date();
+		time.setHours(hours);
+		time.setMinutes(minutes);
+		time.setSeconds(seconds);
+		const timeValue = time.getTime();
+		const difference = Math.abs(currentTime - timeValue);
+		if (difference < minDifference) {
+			minDifference = difference;
+			closestTime = key;
+		}
+	}
+}
 ---
 
 <Layout title={state + " - " + location} state={state} city={cities}>
-	<section class="subnav bg-base-200">
-		<div class="nav my-0">
-			<SelectNegeri />
-			<!--<hr class="h-px border-0 dark:bg-gray-700" /> -->
-			<div tabindex="0" class="collapse collapse-arrow">
-				<div class="collapse-title text-sm flex items-center"></div>
-				<div class="p-0 collapse-content overflow-y-auto">
-					<SelectDaerah state={state} cities={cities} />
-				</div>
+	<div
+		class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5"
+	>
+		<div>
+			<h1 class="text-center text-xl font-bold">{location}</h1>
+			<div class="flex justify-evenly items-center">
+				<small>{hijri}, {date}, {day}</small>
 			</div>
 		</div>
-	</section>
-
-	<div class="hero min-h-screen">
-		<!-- <div class="divider divider-start text-base">
-				<div class="form-control">
-					<label class="cursor-pointer label">
-						<input
-							name="toggledaerah"
-							type="checkbox"
-							title="toggle daerah"
-							checked="checked"
-							class="checkbox checkbox-sm checkbox-accent"
-						/>
-						<span class="label-text ml-4">toggle daerah</span>
-					</label>
-		</div>
-				</div> -->
-		<div class="hero-content text-center">
-			<div class="max-w-md">
-				<!-- <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
-				<div class="form-control">
-					<label class="cursor-pointer label">
-					  <span class="label-text">set as default</span>
-					  <input type="checkbox" checked="checked" class="checkbox checkbox-accent checkbox-xs" />
-					</label>
-				  </div> -->
-
-				<h1 class="text-1xl font-bold p-4">{location}</h1>
-				<PrayerTimeTable />
-			</div>
+		<div>
+			<PrayerTimeTable />
 		</div>
 	</div>
 </Layout>

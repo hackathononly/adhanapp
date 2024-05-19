@@ -1,157 +1,44 @@
 ---
-// import SelectNegeri from "../components/SelectNegeri.astro";
+import SelectNegeri from "../components/SelectNegeri.astro";
+import SelectDaerah from "../components/SelectDaerah.astro";
+import Constants from "../constants";
 
-// const { city, state } = Astro.props;
-// const {pathname} = Astro.url;
-
-// let isDaerahPage;
-
-// if (decodeURI(pathname).split('/').length == 2)
-// 	isDaerahPage = true;
-// else
-// 	isDaerahPage = false;
+const { city, state } = Astro.props;
+const stateNew =
+		state ||
+		Constants.defaultSettings.waktuSolatState ||
+		"get state from localstorage",
+	cities =
+		city ||
+		Constants.defaultSettings.waktuSolatCityArray ||
+		"get waktusolat cities from localstorage";
 ---
 
-<main class="bg-base-200">
-	<!-- <div class="nav">
-		<div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200">
-			<div class="collapse-title text-xl font-medium">
-				Lokasi lain di {state}
-			</div>
-			  <div class="collapse-content"> da
-			</div>
-		  </div>
-	</div> -->
-	<!-- <hr class="h-px my-0 border-0 dark:bg-gray-800"> -->
-	<div class="navbar nav">
-		<div class="navbar-start">
-			<a class="btn btn-ghost text-lg" href="/" title="back to home"
-				>adhan.app</a
-			>
-			<!-- <a class="btn btn-ghost text-xs uppercase" href="/" title="back to home">
-			AdhanApp
-			AA
-			/
-		</a> -->
-			<!-- <a class="btn btn-md btn-ghost text-lg" href="/" title="back to home">
-			<span class="flip">↗︎</span>
-		</a> -->
-		</div>
-		<div class="navbar-center">
-			<!-- <SelectNegeri /> -->
-
-			<!-- <a class="btn btn-ghost text-lg" href="/" title="back to home">
-			adhanApp
-			<span class="flip">↗︎</span>
-		</a>
-		<a class="btn btn-md btn-ghost text-sm" href="/" title="back to home">
-			adhan.app
-		</a> -->
-			<!-- <a class="btn btn-md btn-ghost text-sm" href="/" title="back to home">
-			AA
-		</a> -->
-		</div>
-		<div class="navbar-end">
-			<!-- {!isDaerahPage?
-<div class="divider divider-start text-base">
-
-		<div class="form-control">
-			<label class="cursor-pointer label">
-				<input
-					name="toggledaerah"
-					type="checkbox"
-					title="toggle daerah"
-					checked="checked"
-					class="checkbox checkbox-xs checkbox-accent"
-				/>
-				<span class="label-text ml-4">toggle daerah</span>
-			</label>
-</div>
-		</div>
-		:''} -->
-			<div class="dropdown dropdown-end">
-				<div
-					tabindex="0"
-					role="button"
-					class="btn btn-md btn-ghost rounded-btn text-xs uppercase"
+<main class="bg-base-100">
+	<section class="subnav bg-base-100">
+		<div class="nav my-0">
+			<a
+				class="btn absolute z-10 top-0.5 btn-ghost m-1 text-sm"
+				href="/"
+				title="back to home"
+				><svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="inline-block w-6 h-6 fill-white"
+					viewBox="0 0 48 48"
 				>
-					...
+					<path
+						d="M39.5,43h-9c-1.381,0-2.5-1.119-2.5-2.5v-9c0-1.105-0.895-2-2-2h-4c-1.105,0-2,0.895-2,2v9c0,1.381-1.119,2.5-2.5,2.5h-9	C7.119,43,6,41.881,6,40.5V21.413c0-2.299,1.054-4.471,2.859-5.893L23.071,4.321c0.545-0.428,1.313-0.428,1.857,0L39.142,15.52	C40.947,16.942,42,19.113,42,21.411V40.5C42,41.881,40.881,43,39.5,43z"
+					></path>
+				</svg>
+			</a>
+			<SelectNegeri />
+			<div tabindex="0" class="collapse collapse-arrow">
+				<div class="collapse-title text-sm flex items-center"></div>
+				<div class="p-0 collapse-content overflow-y-auto">
+					<SelectDaerah state={stateNew} cities={cities} />
 				</div>
-
-				<ul
-					tabindex="0"
-					class="menu dropdown-content p-2 shadow bg-base-200 rounded-box w-44 mt-4 z-20"
-				>
-					<li>
-						<label class="cursor-pointer label">
-							<input
-								type="checkbox"
-								title="toggle theme"
-								checked="checked"
-								class="checkbox checkbox-accent checkbox-xs"
-							/>
-							<span class="label-text">toggle theme</span>
-						</label>
-					</li>
-					<li>
-						<label class="cursor-pointer label">
-							<input
-								type="checkbox"
-								title="minimal mode"
-								checked="checked"
-								class="checkbox checkbox-accent checkbox-xs"
-							/>
-							<span class="label-text">minimal mode</span>
-						</label>
-					</li>
-					<hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-					<li>
-						<label class="cursor-pointer label">
-							<input
-								name="worksonffline"
-								type="checkbox"
-								title="works offline"
-								checked="checked"
-								class="checkbox checkbox-accent checkbox-xs"
-							/>
-							<span class="label-text">works offline</span>
-						</label>
-					</li>
-				</ul>
 			</div>
 		</div>
-	</div>
-
-	<hr class="h-px border-0 dark:bg-gray-700" />
+		<hr class="h-px border-0 dark:bg-gray-700" />
+	</section>
 </main>
-
-<script>
-	import type { WritableAtom } from "nanostores";
-	import { isOpen } from "../store";
-
-	function setStateVal(stateName: WritableAtom<boolean>, val: boolean) {
-		stateName.set(val);
-	}
-
-	const currentPathname = new URL(document.location.href).pathname,
-		currentCityCode = currentPathname.split("/")[2],
-		checkbox = document.querySelector(
-			'[name="toggledaerah"]',
-		) as HTMLInputElement;
-	// console.log(currentCityCode, checkbox);
-
-	if (currentCityCode) {
-		checkbox.classList.remove("hidden");
-	} else {
-		checkbox.classList.add("hidden");
-	}
-
-	checkbox.addEventListener("change", function () {
-		if (this.checked) {
-			setStateVal(isOpen, true);
-		} else {
-			setStateVal(isOpen, false);
-		}
-	});
-</script>
-

@@ -1,18 +1,9 @@
 ---
 const { state, cities } = Astro.props;
-
-const { pathname } = Astro.url;
-const currentCityCode = pathname.split("/")[2];
+const { city } = Astro.params;
 ---
 
 <div id="daerahList">
-	<!-- <div class="divider"> -->
-	<!-- Lokasi lain di {state} -->
-	<!-- Lokasi utama lain -->
-	<!-- Pautan ke lokasi utama -->
-	<!-- Pilih lokasi -->
-	<!-- </div> -->
-
 	<div class="overflow-y-auto w-max">
 		<div class="stats shadow">
 			{
@@ -21,17 +12,17 @@ const currentCityCode = pathname.split("/")[2];
 						<a href={"/" + state + "/" + el[0]}>
 							<div
 								class={
-									el.indexOf(currentCityCode) == 0
-										? "stat-title text-gray-400 selected"
-										: "stat-title text-gray-400"
+									el.indexOf(city) == 0
+										? "stat-title text-white"
+										: "stat-title "
 								}
 							>
 								{el[0]}
 							</div>
 							<div
 								class={
-									el.indexOf(currentCityCode) == 0
-										? "w-40 text-xs selected flex-initial break-words text-gray-400"
+									el.indexOf(city) == 0
+										? "w-40 text-xs flex-initial break-words text-white"
 										: "w-40 text-xs flex-initial break-words text-gray-400"
 								}
 							>
@@ -44,22 +35,3 @@ const currentCityCode = pathname.split("/")[2];
 		</div>
 	</div>
 </div>
-
-<style>
-	.selected {
-		color: white;
-	}
-</style>
-<script>
-	// import { isOpen } from '../store.js';
-
-	// const daerahList = document.getElementById('daerahList') as HTMLInputElement;
-
-	// isOpen.subscribe(open => {
-	//   if (open) {
-	// 	daerahList.classList.remove('hidden');
-	//   } else {
-	// 	daerahList.classList.add('hidden');
-	//   }
-	// })
-</script>
