@@ -42,16 +42,7 @@ Object.keys(Constants.locations).map((el: any) => {
 </button>
 <dialog id="my_modal_1" class="modal">
 	<div class="modal-box">
-		<ul tabindex="0" class="menu">
-			{
-				Object.keys(Constants.locations).map((el: any) => (
-					<li>
-						<a href={"/" + el}>{el}</a>
-					</li>
-				))
-			}
-		</ul>
-		<div class="modal-action absolute mt-0 top-2 right-2">
+		<div class="modal-action m-0 sticky top-0">
 			<form method="dialog">
 				<button class="btn btn-circle"
 					><svg
@@ -69,5 +60,14 @@ Object.keys(Constants.locations).map((el: any) => {
 				>
 			</form>
 		</div>
+		<ul tabindex="0" class="menu -mt-12">
+			{
+				Object.keys(Constants.locations).map((el: any) => (
+					<li>
+						<a href={"/" + el}>{el}</a>
+					</li>
+				))
+			}
+		</ul>
 	</div>
 </dialog>
