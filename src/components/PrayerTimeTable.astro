@@ -31,8 +31,16 @@ const waktuSolat = findPrayerTimeByZoneAndDate(
  currentCityCode,
  formattedDate,
 );
-
 const { hijri, date, day, ...filteredObject } = waktuSolat; // exclude hijri, date, day
+
+const timeString12hr = (time24: any) => {
+ return new Date("1970-01-01T" + time24 + "Z").toLocaleTimeString("en-US", {
+  timeZone: "UTC",
+  hour12: true,
+  hour: "numeric",
+  minute: "numeric",
+ });
+};
 ---
 
 <div class="overflow-x-auto">
@@ -49,7 +57,7 @@ const { hijri, date, day, ...filteredObject } = waktuSolat; // exclude hijri, da
      <tr>
       <td>{key}</td>
       <td>
-       <time>{value}</time>
+       <time>{timeString12hr(value)}</time>
       </td>
      </tr>
     ))
