@@ -1,7 +1,7 @@
 import MainData from "../public/prayertime/2024.json";
 import Constants from "./constants.js";
 
-export function getWaktuSolat(cityCode: string) {
+export function getWaktuSolat(cityCode: any) {
   interface Months {
     name: object;
   }
