@@ -1,6 +1,6 @@
 ---
 import Navigation from "../layouts/Navigation.astro";
-// import Footer from "../layouts/Footer.astro";
+import Footer from "../layouts/Footer.astro";
 
 interface Props {
 	title: string;
@@ -26,7 +26,7 @@ const { title, state, city } = Astro.props;
 		<main>
 			<slot />
 		</main>
-		<!-- <Footer /> -->
+		<Footer />
 	</body>
 </html>
 <style is:global>
@@ -66,17 +66,12 @@ const { title, state, city } = Astro.props;
 	}
 	main,
 	header {
-		/* padding: 1rem; */
-		/* width: 1200px;
-		max-width: calc(100% - 2rem); */
-		/* color: white; */
-		/* font-size: 20px; */
 		line-height: 1.6;
 	}
-	main .nav {
+	main .nav,
+	footer .nav {
 		position: relative;
 		margin: auto;
-		/* padding: 1rem; */
 		width: 1200px;
 		max-width: calc(100% - 2rem);
 	}
@@ -85,10 +80,4 @@ const { title, state, city } = Astro.props;
 		z-index: 1;
 		position: sticky;
 	}
-
-	/* .flip {
-		display: inline-block;
-		-webkit-transform: scaleX(-1);
-		transform: scaleX(-1);
-	} */
 </style>

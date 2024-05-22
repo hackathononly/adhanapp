@@ -8,7 +8,7 @@ const { city } = Astro.params;
 		<div class="stats shadow">
 			{
 				cities.map((el: any) => (
-					<div class="relative stat pt-0 pb-0">
+					<div class="relative stat pt-0 pb-0 -ml-5">
 						<a href="#" class="text-primary absolute top-0 left-5">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -37,8 +37,8 @@ const { city } = Astro.params;
 							<div
 								class={
 									el.indexOf(city) == 0
-										? "w-48 text-xs flex-initial break-words text-white"
-										: "w-48 text-xs flex-initial break-words text-gray-400"
+										? "w-40 text-xs flex-initial break-words text-white"
+										: "w-40 text-xs flex-initial break-words text-gray-400"
 								}
 							>
 								{el[1]}

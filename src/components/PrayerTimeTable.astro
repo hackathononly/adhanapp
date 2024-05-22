@@ -1,46 +1,8 @@
 ---
-import mainData from "../../public/prayertime/2024.json";
-import Constants from "../constants";
+import { getWaktuSolat, timeString12hr } from "../util";
 
-const { city } = Astro.params,
- currentCityCode = city ? city : Constants.defaultSettings.waktuSolatStateCode,
- allWaktuSolat = mainData.data.data[0];
-
-const currentDate = new Date(),
- monthNames = Object.values(Constants.monthMalay),
- dd = String(currentDate.getDate()).padStart(2, "0"),
- month = monthNames[currentDate.getMonth()],
- year = currentDate.getFullYear(),
- formattedDate = `${dd}-${month}-${year}`;
-
-function findPrayerTimeByZoneAndDate(data: any, zone: any, date: string) {
- for (const row of data.rows) {
-  if (row.zone === zone) {
-   for (const prayerTime of row.prayerTime) {
-    if (prayerTime.date === date) {
-     return prayerTime;
-    }
-   }
-  }
- }
- return null;
-}
-
-const waktuSolat = findPrayerTimeByZoneAndDate(
- allWaktuSolat,
- currentCityCode,
- formattedDate,
-);
-const { hijri, date, day, ...filteredObject } = waktuSolat; // exclude hijri, date, day
-
-const timeString12hr = (time24: any) => {
- return new Date("1970-01-01T" + time24 + "Z").toLocaleTimeString("en-US", {
-  timeZone: "UTC",
-  hour12: true,
-  hour: "numeric",
-  minute: "numeric",
- });
-};
+const { city } = Astro.params;
+const { hijri, date, day, ...filteredObject } = getWaktuSolat(city); // exclude hijri, date, day
 ---
 
 <div class="overflow-x-auto">
