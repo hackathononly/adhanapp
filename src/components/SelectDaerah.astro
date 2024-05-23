@@ -8,22 +8,28 @@ const { city } = Astro.params;
 		<div class="stats shadow">
 			{
 				cities.map((el: any) => (
-					<div class="relative stat pt-0 pb-0 -ml-5">
-						<a href="#" class="text-primary absolute top-0 left-5">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								class="inline-block w-4 h-4 stroke-current"
+					<div class="relative stat pt-0 pb-2 -ml-5">
+						<div class="stat-figure text-gray-400">
+							<a
+								href="#"
+								class="selected absolute top-0 left-5"
+								title={"Set " + el[0] + " as default location"}
 							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-								/>
-							</svg>
-						</a>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									class="inline-block w-5 h-5 stroke-current"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+									/>
+								</svg>
+							</a>
+						</div>
 						<a href={"/" + state + "/" + el[0]}>
 							<div
 								class={

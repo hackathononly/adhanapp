@@ -1,8 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Constants from "../../constants";
 import PrayerTimeTable from "../../components/PrayerTimeTable.astro";
-import mainData from "../../../public/prayertime/2024.json";
+import Constants from "../../constants";
+import { getWaktuSolat } from "../../util";
 
 export async function getStaticPaths() {
 	let returnedAry: any = [];
@@ -25,82 +25,7 @@ export async function getStaticPaths() {
 
 const { city, state } = Astro.params;
 const { cities, location } = Astro.props;
-
-const currentCityCode = city
-		? city
-		: Constants.defaultSettings.waktuSolatStateCode,
-	allWaktuSolat = mainData.data.data[0];
-
-const currentDate = new Date(),
-	monthNames = Object.values(Constants.monthMalay),
-	dd = String(currentDate.getDate()).padStart(2, "0"),
-	month = monthNames[currentDate.getMonth()],
-	year = currentDate.getFullYear(),
-	formattedDate = `${dd}-${month}-${year}`;
-
-function findPrayerTimeByZoneAndDate(data: any, zone: any, date: string) {
-	for (const row of data.rows) {
-		if (row.zone === zone) {
-			for (const prayerTime of row.prayerTime) {
-				if (prayerTime.date === date) {
-					return prayerTime;
-				}
-			}
-		}
-	}
-	return null; // Return null if zone or date is not found
-}
-
-const waktuSolat = findPrayerTimeByZoneAndDate(
-	allWaktuSolat,
-	currentCityCode,
-	formattedDate,
-);
-
-const { hijri, date, day, ...filteredObject } = waktuSolat;
-const formattedTimeObject: { [key: string]: any } = {};
-
-for (const key in filteredObject) {
-	if (Object.hasOwnProperty.call(filteredObject, key)) {
-		const timeString = filteredObject[key];
-		const timeComponents = timeString.split(":");
-
-		// Create a Date object and set the time
-		const date = new Date();
-		date.setHours(parseInt(timeComponents[0]));
-		date.setMinutes(parseInt(timeComponents[1]));
-		date.setSeconds(parseInt(timeComponents[2]));
-
-		// Format the time to AM/PM format
-		const formattedTime = date.toLocaleTimeString("en-US", { hour12: true });
-
-		formattedTimeObject[key] = formattedTime;
-	}
-}
-
-// Get current time
-const currentTime = currentDate.getTime();
-
-// Convert each time value to timestamp and calculate the difference
-let closestTime: string;
-let minDifference = Infinity;
-
-for (const key in filteredObject) {
-	if (Object.hasOwnProperty.call(filteredObject, key)) {
-		const timeString = filteredObject[key];
-		const [hours, minutes, seconds] = timeString.split(/:| /);
-		let time = new Date();
-		time.setHours(hours);
-		time.setMinutes(minutes);
-		time.setSeconds(seconds);
-		const timeValue = time.getTime();
-		const difference = Math.abs(currentTime - timeValue);
-		if (difference < minDifference) {
-			minDifference = difference;
-			closestTime = key;
-		}
-	}
-}
+const { hijri, date, day } = getWaktuSolat(city);
 ---
 
 <Layout title={state + " - " + location} state={state} city={cities}>

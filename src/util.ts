@@ -61,3 +61,30 @@ export const timeString12hr = (time24: any) => {
     minute: "numeric",
   });
 };
+
+export function getClosestPrayerTime(filteredObject: any) {
+  // Get current time
+  const currentDate = new Date(),
+    currentTime = currentDate.getTime();
+
+  // Convert each time value to timestamp and calculate the difference
+  let closestTime: string = "";
+  let minDifference = Infinity;
+  for (const key in filteredObject) {
+    if (Object.hasOwnProperty.call(filteredObject, key)) {
+      const timeString = filteredObject[key];
+      const [hours, minutes, seconds] = timeString.split(/:| /);
+      let time = new Date();
+      time.setHours(hours);
+      time.setMinutes(minutes);
+      time.setSeconds(seconds);
+      const timeValue = time.getTime();
+      const difference = Math.abs(currentTime - timeValue);
+      if (difference < minDifference) {
+        minDifference = difference;
+        closestTime = key;
+      }
+    }
+  }
+  return closestTime;
+}

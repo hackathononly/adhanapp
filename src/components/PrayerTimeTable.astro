@@ -1,8 +1,9 @@
 ---
-import { getWaktuSolat, timeString12hr } from "../util";
+import { getClosestPrayerTime, getWaktuSolat, timeString12hr } from "../util";
 
 const { city } = Astro.params;
 const { hijri, date, day, ...filteredObject } = getWaktuSolat(city); // exclude hijri, date, day
+const closestTime = getClosestPrayerTime(filteredObject);
 ---
 
 <div class="overflow-x-auto">
@@ -17,8 +18,10 @@ const { hijri, date, day, ...filteredObject } = getWaktuSolat(city); // exclude 
    {
     Object.entries(filteredObject).map(([key, value]) => (
      <tr>
-      <td>{key}</td>
-      <td>
+      <td class={key == closestTime ? "currentPrayerTime" : ""}>{key}</td>
+      <td
+       class={value == filteredObject[closestTime] ? "currentPrayerTime" : ""}
+      >
        <time>{timeString12hr(value)}</time>
       </td>
      </tr>
