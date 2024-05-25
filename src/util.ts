@@ -2,18 +2,9 @@ import MainData from "../public/prayertime/2024.json";
 import Constants from "./constants.js";
 
 export function getWaktuSolat(cityCode: any) {
-  interface Months {
-    name: object;
-  }
-
-  const months: Months = {
-    name: Constants.monthMalay,
-  };
-
   const currentDate = new Date(),
-    monthNames = Object.values(months.name),
     dd = String(currentDate.getDate()).padStart(2, "0"),
-    month = monthNames[currentDate.getMonth() + 1],
+    month = currentDate.toLocaleString("default", { month: "long" }),
     year = currentDate.getFullYear(),
     formattedDate = `${dd}-${month}-${year}`;
 
