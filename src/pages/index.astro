@@ -1,40 +1,19 @@
 ---
-import { getWaktuSolat } from "../util";
 import Layout from "../layouts/Layout.astro";
-import PrayerTimeTable from "../components/PrayerTimeTable.astro";
+import MainContent from "../components/MainContent.astro";
 import Constants from "../constants";
 
 const state =
-		Constants.defaultSettings.waktuSolatState || "get state from localstorage",
-	city =
-		Constants.defaultSettings.waktuSolatCity ||
-		"get waktusolat city from localstorage",
+		//localStorage.getItem("state") ||
+		Constants.defaultSettings.waktuSolatState,
+	location =
+		//localStorage.getItem("location") ||
+		Constants.defaultSettings.waktuSolatCity,
 	cities =
-		Constants.defaultSettings.waktuSolatCityArray ||
-		"get waktusolat cities from localstorage",
-	cityCode =
-		Constants.defaultSettings.waktuSolatStateCode ||
-		"get waktusolat city code from localstorage";
-
-const { hijri, date, day } = getWaktuSolat(cityCode);
+		//localStorage.getItem("cities") ||
+		Constants.defaultSettings.waktuSolatCityArray;
 ---
 
-<Layout title="AdhanApp" state={state} city={cities}>
-	<div
-		class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5"
-	>
-		<!--	<div class="py-10 nav grid grid-cols-[20vw_minmax(60vw,_1fr)_80vw]">-->
-		<div class="bg-base-200 rounded-box p-10">
-			<h1 class="text-center text-xl font-bold">{city}</h1>
-			<div class="flex justify-evenly items-center py-2">
-				<ul class="text-xs text-center py-10">
-					<li>{hijri}</li>
-					<li>{date}</li>
-					<li>{day}</li>
-				</ul>
-				<small class="hidden">{hijri}, {date}, {day}</small>
-			</div>
-		</div>
-		<PrayerTimeTable />
-	</div>
+<Layout title={"adhan.app : " + state} state={state} cities={cities}>
+	<MainContent location={location} />
 </Layout>

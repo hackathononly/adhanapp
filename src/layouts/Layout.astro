@@ -5,10 +5,10 @@ import Footer from "../layouts/Footer.astro";
 interface Props {
 	title: string;
 	state: string;
-	city: {};
+	cities: {};
 }
 
-const { title, state, city } = Astro.props;
+const { title, state, cities } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,7 +22,7 @@ const { title, state, city } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen" tabindex="0">
-		<Navigation city={city} state={state} />
+		<Navigation cities={cities} state={state} />
 		<main>
 			<slot />
 		</main>
@@ -45,24 +45,6 @@ const { title, state, city } = Astro.props;
 		font-family: system-ui, sans-serif;
 		background: #13151a;
 		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-	h1.logo {
-		font-size: 2rem;
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
 	}
 	main,
 	header {

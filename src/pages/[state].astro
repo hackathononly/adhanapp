@@ -4,55 +4,41 @@ import Constants from "../constants.js";
 import SelectNegeri from "../components/SelectNegeri.astro";
 
 export async function getStaticPaths() {
-  let returnedAry:any = [];
+  let returnedAry: any = [];
 
-for (const state in Constants.locations) {
-  const location = Constants.locations,
-   cities = location[state as keyof typeof location];
-  for (const city in cities) {
-    returnedAry.push({
-      params: { state, city },
-      props: { cities: Object.entries(cities), location: cities[city as keyof typeof cities] }
-    });
+  for (const state in Constants.locations) {
+    const location = Constants.locations,
+      cities = location[state as keyof typeof location];
+    for (const city in cities) {
+      returnedAry.push({
+        params: { state, city },
+        props: {
+          cities: Object.entries(cities),
+          location: cities[city as keyof typeof cities],
+        },
+      });
+    }
   }
-}
   return returnedAry;
 }
 
 const { state } = Astro.params;
 const { cities } = Astro.props;
-
 ---
 
-<Layout title={state} state={state} city={cities}>
-		<div class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-			{(cities as []).map((el: any) => 
-				<div class="stat rounded-lg bg-base-200 overflow-hidden shadow-lg2">
-					<a href={'/' + state + '/' + el[0]}>
-
-
-				  <div class='stat-title'>{el[0]}
-					<!--<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> -->
-					</div>
-
-
-				  <div class='stat-desc text-wrap'>{el[1]}</div>
-				</div>
-					</a>
-					)}
-
-
-					<!-- {cities.map((el: any) => 
-				<div class="max-w-sm rounded-lg overflow-hidden shadow-lg bg-red-400">
-					<a href={'/' + state + '/' + el[0]}>
-							<div class="px-6 py-4">
-				  <div class={el.indexOf(currentCityCode)==0 ?'active font-bold text-xl mb-2': 'font-bold text-xl mb-2'}>{el[0]}</div>
-				  <p class={el.indexOf(currentCityCode)==0 ?'active text-gray-700 text-base':'text-gray-700 text-base'}>
-					{el[1]}
-				  </p>
-				</div>
-				</a>
-			</div>
-			)} -->
-			</div>
+<Layout title={"adhan.app : " + state} state={state} cities={cities}>
+  <div
+    class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+  >
+    {
+      (cities as []).map((el: any) => (
+        <div class="stat rounded-lg bg-base-200 overflow-hidden shadow-lg2">
+          <a href={"/" + state + "/" + el[0]}>
+            <div class="stat-title">{el[0]}</div>
+            <div class="stat-desc text-wrap">{el[1]}</div>
+          </a>
+        </div>
+      ))
+    }
+  </div>
 </Layout>

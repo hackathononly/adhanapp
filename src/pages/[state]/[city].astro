@@ -1,8 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import PrayerTimeTable from "../../components/PrayerTimeTable.astro";
+import MainContent from "../../components/MainContent.astro";
 import Constants from "../../constants";
-import { getWaktuSolat } from "../../util";
 
 export async function getStaticPaths() {
 	let returnedAry: any = [];
@@ -23,29 +22,14 @@ export async function getStaticPaths() {
 	return returnedAry;
 }
 
-const { city, state } = Astro.params;
+const { state } = Astro.params;
 const { cities, location } = Astro.props;
-const { hijri, date, day } = getWaktuSolat(city);
 ---
 
-<Layout title={state + " - " + location} state={state} city={cities}>
-	<div
-		class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5"
-	>
-		<!--	<div class="py-10 nav grid grid-cols-[20vw_minmax(60vw,_1fr)_80vw]">-->
-		<div class="bg-base-200 rounded-box p-10">
-			<h1 class="text-center text-xl font-bold">{location}</h1>
-			<div class="flex justify-evenly items-center">
-				<ul class="text-xs text-center py-10">
-					<li>{hijri}</li>
-					<li>{date}</li>
-					<li>{day}</li>
-				</ul>
-				<small class="hidden">{hijri}, {date}, {day}</small>
-			</div>
-		</div>
-		<div>
-			<PrayerTimeTable />
-		</div>
-	</div>
+<Layout
+	title={"adhan.app : " + state + " - " + location}
+	state={state}
+	cities={cities}
+>
+	<MainContent location={location} />
 </Layout>

@@ -1,0 +1,35 @@
+---
+import PrayerTimeTable from "./PrayerTimeTable.astro";
+import Constants from "../constants";
+import { getWaktuSolat } from "../util";
+
+const location = Astro.props.location;
+const cityCode = Astro.params.city;
+
+const locationNew =
+    location ||
+    //localStorage.getItem("location") ||
+    Constants.defaultSettings.waktuSolatCity,
+  cityCodeNew =
+    cityCode ||
+    //localStorage.getItem("cityCode") ||
+    Constants.defaultSettings.waktuSolatStateCode;
+
+const { hijri, date, day } = getWaktuSolat(cityCodeNew);
+---
+
+<div
+  class="nav py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10"
+>
+  <div class="bg-base-200 rounded-box p-10">
+    <div class="flex justify-evenly items-center py-4">
+      <ul class="text-xs text-center">
+        <li>{hijri}</li>
+        <li>{date}</li>
+        <li>{day}</li>
+      </ul>
+    </div>
+    <h1 class="text-center text-xl font-bold">{locationNew}</h1>
+  </div>
+  <PrayerTimeTable />
+</div>
