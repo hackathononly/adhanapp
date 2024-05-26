@@ -3,13 +3,12 @@ import SelectNegeri from "../components/SelectNegeri.astro";
 import SelectDaerah from "../components/SelectDaerah.astro";
 import Constants from "../constants";
 
-const { cities, state } = Astro.props;
-const stateNew =
-		state ||
+const states =
+		Astro.props.state ||
 		//localStorage.getItem("state") ||
 		Constants.defaultSettings.waktuSolatState,
-	citiesNew =
-		cities ||
+	cities =
+		Astro.props.cities ||
 		//localStorage.getItem("cities") ||
 		Constants.defaultSettings.waktuSolatCityArray;
 ---
@@ -36,7 +35,7 @@ const stateNew =
 			<div tabindex="0" class="collapse collapse-arrow">
 				<div class="collapse-title text-sm flex items-center"></div>
 				<div class="p-0 collapse-content overflow-y-auto">
-					<SelectDaerah state={stateNew} cities={citiesNew} />
+					<SelectDaerah states={states} cities={cities} />
 				</div>
 			</div>
 		</div>

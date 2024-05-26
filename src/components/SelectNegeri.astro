@@ -7,22 +7,6 @@ const negeriLabel =
 	pathname !== "/"
 		? decodeURI(pathname).split("/")[1].replace("/", "")
 		: Constants.defaultSettings.waktuSolatState;
-
-// Object.values(Constants.locations).map((el: any) =>
-// 	console.log(el, pathname, Object.keys(el)[0])
-// );
-
-Object.keys(Constants.locations).map((el: any) => {
-	// console.log(el, Object.values(Constants.locations))
-	// const p = Object.values(Constants.locations);
-	// console.log('dsad',p);
-	// console.log('d', el, negeriLabel);
-	if (negeriLabel == el) {
-		// const d = String(el);
-		// console.log(d);
-		//console.log(Constants.locations);
-	}
-});
 ---
 
 <button class="btn btn-ghost ml-2" onclick="my_modal_1.showModal()">

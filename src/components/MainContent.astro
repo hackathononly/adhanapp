@@ -1,35 +1,34 @@
 ---
 import PrayerTimeTable from "./PrayerTimeTable.astro";
 import Constants from "../constants";
-import { getWaktuSolat } from "../util";
+import { getWaktuSolat, convertDate } from "../util";
 
-const location = Astro.props.location;
-const cityCode = Astro.params.city;
+const location = Astro.props.location
+    ? Astro.props.location
+    : Constants.defaultSettings.waktuSolatCity,
+  //localStorage.getItem("location")
+  cityCode = Astro.params.city
+    ? Astro.params.city
+    : Constants.defaultSettings.waktuSolatStateCode;
+//localStorage.getItem("cityCode")
 
-const locationNew =
-    location ||
-    //localStorage.getItem("location") ||
-    Constants.defaultSettings.waktuSolatCity,
-  cityCodeNew =
-    cityCode ||
-    //localStorage.getItem("cityCode") ||
-    Constants.defaultSettings.waktuSolatStateCode;
-
-const { hijri, date, day } = getWaktuSolat(cityCodeNew);
+const { hijri, date, day } = getWaktuSolat(cityCode);
 ---
 
 <div
-  class="nav py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10"
+  class="nav py-10 grid sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-10"
 >
-  <div class="bg-base-200 rounded-box p-10">
-    <div class="flex justify-evenly items-center py-4">
-      <ul class="text-xs text-center">
-        <li>{hijri}</li>
-        <li>{date}</li>
+  <div class="bg-base-200 rounded-box p-8">
+    <div class="flex pb-4">
+      <ul class="text-xs text-gray-400">
+        <li class="hidden">{hijri}</li>
+        <li>{convertDate(date)}</li>
         <li>{day}</li>
       </ul>
     </div>
-    <h1 class="text-center text-xl font-bold">{locationNew}</h1>
+    <h3>{location}</h3>
   </div>
-  <PrayerTimeTable />
+  <div class="col-span-4">
+    <PrayerTimeTable />
+  </div>
 </div>

@@ -1,5 +1,5 @@
 ---
-const { state, cities } = Astro.props;
+const { states, cities } = Astro.props;
 const { city } = Astro.params;
 ---
 
@@ -30,12 +30,12 @@ const { city } = Astro.params;
 								</svg>
 							</a>
 						</div>
-						<a href={"/" + state + "/" + el[0]}>
+						<a href={"/" + states + "/" + el[0]}>
 							<div
 								class={
 									el.indexOf(city) == 0
 										? "ml-6 mb-2 stat-title text-white"
-										: "ml-6 mb-2 stat-title "
+										: "ml-6 mb-2 stat-title text-gray-400"
 								}
 							>
 								{el[0]}

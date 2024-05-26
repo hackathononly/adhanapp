@@ -1,6 +1,33 @@
 import MainData from "../public/prayertime/2024.json";
 import Constants from "./constants.js";
 
+export function convertDate(dateString: any) {
+  // Split the input date string into components
+  let [day, month] = dateString.split("-");
+
+  // Define a mapping of month abbreviations to full month names
+  const months = {
+    Jan: "January",
+    Feb: "February",
+    Mar: "March",
+    Apr: "April",
+    May: "May",
+    Jun: "June",
+    Jul: "July",
+    Aug: "August",
+    Sep: "September",
+    Oct: "October",
+    Nov: "November",
+    Dec: "December",
+  };
+
+  // Get the full month name
+  let fullMonth = months[month];
+
+  // Return the formatted date
+  return `${fullMonth}${parseInt(day, 10)}`;
+}
+
 export function getWaktuSolat(cityCode: any) {
   const currentDate = new Date(),
     dd = String(currentDate.getDate()).padStart(2, "0"),
@@ -54,7 +81,6 @@ export const timeString12hr = (time24: any) => {
 };
 
 export function getClosestPrayerTime(filteredObject: any) {
-  // Get current time
   const currentDate = new Date(),
     currentTime = currentDate.getTime();
 
