@@ -6,7 +6,7 @@ export function convertDate(dateString: any) {
   let [day, month] = dateString.split("-");
 
   // Define a mapping of month abbreviations to full month names
-  const months = {
+  const monthList: { [index: string]: any } = {
     Jan: "January",
     Feb: "February",
     Mar: "March",
@@ -22,7 +22,7 @@ export function convertDate(dateString: any) {
   };
 
   // Get the full month name
-  let fullMonth = months[month];
+  let fullMonth = monthList[month];
 
   // Return the formatted date
   return `${fullMonth}${parseInt(day, 10)}`;
