@@ -1,5 +1,6 @@
 ---
 import PrayerTimeTable from "./PrayerTimeTable.astro";
+import RandomTazkirah from "./RandomTazkirah.astro";
 import Constants from "../constants";
 import { getWaktuSolat, convertDate } from "../util";
 
@@ -15,9 +16,7 @@ const location = Astro.props.location
 const { hijri, date, day } = getWaktuSolat(cityCode);
 ---
 
-<div
-  class="nav py-10 grid sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-10"
->
+<div class="nav py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
   <div class="bg-base-200 rounded-box p-8">
     <div class="flex pb-4">
       <ul class="text-xs text-gray-400">
@@ -28,7 +27,6 @@ const { hijri, date, day } = getWaktuSolat(cityCode);
     </div>
     <h3>{location}</h3>
   </div>
-  <div class="col-span-4">
-    <PrayerTimeTable />
-  </div>
+  <PrayerTimeTable />
+  <RandomTazkirah />
 </div>
