@@ -6,9 +6,8 @@ export function hello() {
 }
 
 export function getLocationFromZone(zone: any) {
-  return Object.entries(Constants.locations).map(([key, value]) => {
+  return Object.entries(Constants.locations).map(([key, value]: any) => {
     return Object.prototype.hasOwnProperty.call(value, zone) ? value[zone] : "";
-    //return zone in value ? Object.values(value)[0] : "";
   });
 }
 
