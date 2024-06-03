@@ -1,13 +1,24 @@
-import MainData from "../public/prayertime/2024.json";
+import MainData from "../src/prayertime/2024.json";
 import Constants from "./constants.js";
 
-export function convertDate(dateString: any) {
+export function hello() {
+  return "hello";
+}
+
+export function getLocationFromZone(zone: any) {
+  return Object.entries(Constants.locations).map(([key, value]) => {
+    return Object.prototype.hasOwnProperty.call(value, zone) ? value[zone] : "";
+    //return zone in value ? Object.values(value)[0] : "";
+  });
+}
+
+export function convertDateMonthDay(dateString: any) {
   let [day, month] = dateString.split("-");
 
   return `${month}${parseInt(day, 10)}`;
 }
 
-export function getWaktuSolat(cityCode: any) {
+export function getWaktuSolat(zone: any) {
   const currentDate = new Date(),
     dd = String(currentDate.getDate()).padStart(2, "0"),
     month = currentDate.toLocaleString("default", { month: "short" }),
@@ -28,11 +39,11 @@ export function getWaktuSolat(cityCode: any) {
   };
 
   interface CurrentCity {
-    code: string;
+    zone: string;
   }
 
   const currentCity: CurrentCity = {
-    code: cityCode || Constants.defaultSettings.waktuSolatStateCode,
+    zone: zone || Constants.defaultSettings.waktuSolatStateCode,
   };
 
   interface MainDatas {
@@ -45,7 +56,7 @@ export function getWaktuSolat(cityCode: any) {
 
   return findPrayerTimeByZoneAndDate(
     allWaktuSolat.data,
-    currentCity.code,
+    currentCity.zone,
     formattedDate,
   );
 }

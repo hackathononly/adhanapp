@@ -8,13 +8,13 @@ export async function getStaticPaths() {
 
 	for (const state in Constants.locations) {
 		const location = Constants.locations,
-			cities = location[state as keyof typeof location];
-		for (const city in cities) {
+			zones = location[state as keyof typeof location];
+		for (const zone in zones) {
 			returnedAry.push({
-				params: { state, city },
+				params: { state, zone },
 				props: {
-					cities: Object.entries(cities),
-					location: cities[city as keyof typeof cities],
+					zones: Object.entries(zones),
+					location: zones[zone as keyof typeof zones],
 				},
 			});
 		}
@@ -23,13 +23,13 @@ export async function getStaticPaths() {
 }
 
 const { state } = Astro.params;
-const { cities, location } = Astro.props;
+const { zones, location } = Astro.props;
 ---
 
 <Layout
 	title={"adhan.app : " + state + " - " + location}
 	state={state}
-	cities={cities}
+	zones={zones}
 >
-	<MainContent location={location} />
+	<MainContent />
 </Layout>

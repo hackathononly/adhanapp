@@ -6,14 +6,11 @@ import Constants from "../constants";
 const state =
 		//localStorage.getItem("state") ||
 		Constants.defaultSettings.waktuSolatState,
-	location =
-		//localStorage.getItem("location") ||
-		Constants.defaultSettings.waktuSolatCity,
-	cities =
+	zones =
 		//localStorage.getItem("cities") ||
-		Constants.defaultSettings.waktuSolatCityArray;
+		Constants.defaultSettings.waktuSolatZones;
 ---
 
-<Layout title={"adhan.app : " + state} state={state} cities={cities}>
-	<MainContent location={location} />
+<Layout title={"adhan.app : " + state} state={state} zones={zones}>
+	<MainContent />
 </Layout>

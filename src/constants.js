@@ -64,7 +64,7 @@ const Constants = {
     waktuSolatStateCode: "WLY01",
     waktuSolatState: "Wilayah Persekutuan",
     waktuSolatCity: "Kuala Lumpur, Putrajaya",
-    waktuSolatCityArray: [
+    waktuSolatZones: [
       ["WLY01", "Kuala Lumpur, Putrajaya"],
       ["WLY02", "Labuan "],
     ],

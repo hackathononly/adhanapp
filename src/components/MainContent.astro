@@ -2,18 +2,22 @@
 import PrayerTimeTable from "./PrayerTimeTable.astro";
 import RandomTazkirah from "./RandomTazkirah.astro";
 import Constants from "../constants";
-import { getWaktuSolat, convertDate } from "../util";
+import {
+  getWaktuSolat,
+  getLocationFromZone,
+  convertDateMonthDay,
+} from "../util";
 
-const location = Astro.props.location
-    ? Astro.props.location
-    : Constants.defaultSettings.waktuSolatCity,
-  //localStorage.getItem("location")
-  cityCode = Astro.params.city
-    ? Astro.params.city
-    : Constants.defaultSettings.waktuSolatStateCode;
-//localStorage.getItem("cityCode")
+const location = Astro.params.zone
+    ? getLocationFromZone(Astro.params.zone)
+    : Constants.defaultSettings.waktuSolatCity ||
+      localStorage.getItem("location"),
+  zone = Astro.params.zone
+    ? Astro.params.zone
+    : Constants.defaultSettings.waktuSolatStateCode ||
+      localStorage.getItem("zone");
 
-const { hijri, date, day } = getWaktuSolat(cityCode);
+const { hijri, date, day } = getWaktuSolat(zone);
 ---
 
 <div class="nav py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
@@ -21,7 +25,7 @@ const { hijri, date, day } = getWaktuSolat(cityCode);
     <div class="flex pb-4">
       <ul class="text-xs text-gray-400">
         <li class="hidden">{hijri}</li>
-        <li>{convertDate(date)}</li>
+        <li>{convertDateMonthDay(date)}</li>
         <li>{day}</li>
       </ul>
     </div>

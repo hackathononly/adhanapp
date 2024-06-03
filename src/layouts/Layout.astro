@@ -6,10 +6,10 @@ import "../styles/tailwind.css";
 interface Props {
 	title: string;
 	state: string;
-	cities: {};
+	zones: {};
 }
 
-const { title, state, cities } = Astro.props;
+const { title, state, zones } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +23,7 @@ const { title, state, cities } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen" tabindex="0">
-		<Navigation cities={cities} state={state} />
+		<Navigation zones={zones} state={state} />
 		<main>
 			<slot />
 		</main>

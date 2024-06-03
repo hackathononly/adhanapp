@@ -1,8 +1,8 @@
 ---
 import { getClosestPrayerTime, getWaktuSolat, timeString12hr } from "../util";
 
-const { city } = Astro.params;
-const { hijri, date, day, ...filteredObject } = getWaktuSolat(city); // exclude hijri, date, day
+const { zone } = Astro.params;
+const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
 const closestTime = getClosestPrayerTime(filteredObject);
 ---
 

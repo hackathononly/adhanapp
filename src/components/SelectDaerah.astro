@@ -1,13 +1,13 @@
 ---
-const { states, cities } = Astro.props;
-const { city } = Astro.params;
+const { states, zones } = Astro.props;
+const { zone } = Astro.params;
 ---
 
 <div id="daerahList">
 	<div class="overflow-y-auto w-max">
 		<div class="stats shadow py-2">
 			{
-				cities.map((el: any) => (
+				zones.map((el: any) => (
 					<div class="relative stat pt-0 pb-2 -ml-5">
 						<div class="stat-figure text-gray-400">
 							<a
@@ -33,7 +33,7 @@ const { city } = Astro.params;
 						<a href={"/" + states + "/" + el[0]}>
 							<div
 								class={
-									el.indexOf(city) == 0
+									el.indexOf(zone) == 0
 										? "ml-6 mb-2 stat-title text-white"
 										: "ml-6 mb-2 stat-title text-gray-400"
 								}
@@ -42,7 +42,7 @@ const { city } = Astro.params;
 							</div>
 							<div
 								class={
-									el.indexOf(city) == 0
+									el.indexOf(zone) == 0
 										? "w-40 text-xs flex-initial break-words text-white"
 										: "w-40 text-xs flex-initial break-words text-gray-400"
 								}

@@ -7,10 +7,10 @@ const states =
 		Astro.props.state ||
 		//localStorage.getItem("state") ||
 		Constants.defaultSettings.waktuSolatState,
-	cities =
-		Astro.props.cities ||
+	zones =
+		Astro.props.zones ||
 		//localStorage.getItem("cities") ||
-		Constants.defaultSettings.waktuSolatCityArray;
+		Constants.defaultSettings.waktuSolatZones;
 ---
 
 <main class="bg-base-100 sticky top-0 z-10">
@@ -32,10 +32,15 @@ const states =
 					<SelectNegeri />
 				</div>
 			</div>
-			<div tabindex="0" class="collapse collapse-arrow">
+			<div
+				tabindex="0"
+				class={Object.keys(Astro.params).length < 2
+					? "collapse collapse-arrow hidden2"
+					: "collapse collapse-arrow"}
+			>
 				<div class="collapse-title text-sm flex items-center"></div>
 				<div class="p-0 collapse-content overflow-y-auto">
-					<SelectDaerah states={states} cities={cities} />
+					<SelectDaerah states={states} zones={zones} />
 				</div>
 			</div>
 		</div>

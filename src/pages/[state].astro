@@ -7,13 +7,13 @@ export async function getStaticPaths() {
 
   for (const state in Constants.locations) {
     const location = Constants.locations,
-      cities = location[state as keyof typeof location];
-    for (const city in cities) {
+      zones = location[state as keyof typeof location];
+    for (const zone in zones) {
       returnedAry.push({
-        params: { state, city },
+        params: { state, zone },
         props: {
-          cities: Object.entries(cities),
-          location: cities[city as keyof typeof cities],
+          zones: Object.entries(zones),
+          location: zones[zone as keyof typeof zones],
         },
       });
     }
@@ -22,15 +22,15 @@ export async function getStaticPaths() {
 }
 
 const { state } = Astro.params;
-const { cities } = Astro.props;
+const { zones } = Astro.props;
 ---
 
-<Layout title={"adhan.app : " + state} state={state} cities={cities}>
+<Layout title={"adhan.app : " + state} state={state} zones={zones}>
   <div
     class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5"
   >
     {
-      (cities as []).map((el: any) => (
+      (zones as []).map((el: any) => (
         <div class="stat rounded-lg bg-base-200 overflow-hidden shadow-lg2">
           <a href={"/" + state + "/" + el[0]}>
             <div class="stat-title">{el[0]}</div>
