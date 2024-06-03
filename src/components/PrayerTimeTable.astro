@@ -3,8 +3,15 @@ import { getClosestPrayerTime, getWaktuSolat, timeString12hr } from "../util";
 
 const { zone } = Astro.params;
 const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
+console.log(filteredObject);
 const closestTime = getClosestPrayerTime(filteredObject);
 ---
+
+<script>
+ import { getWaktuSolat, getClosestPrayerTime } from "../util";
+ const zone = "WLY01";
+ console.log(getWaktuSolat(zone), getClosestPrayerTime);
+</script>
 
 <div class="overflow-x-auto">
  <table class="table">
@@ -18,10 +25,10 @@ const closestTime = getClosestPrayerTime(filteredObject);
    {
     Object.entries(filteredObject).map(([key, value]) => (
      <tr>
-      <td class={key == closestTime ? "currentPrayerTime" : ""}>{key}</td>
-      <td
-       class={value == filteredObject[closestTime] ? "currentPrayerTime" : ""}
-      >
+      <td>{key}</td>
+      <!--<td class={key == closestTime ? "currentPrayerTime" : ""}>{key}</td>-->
+      <td>
+       <!--class={value == filteredObject[closestTime] ? "currentPrayerTime" : ""}-->
        <time>{timeString12hr(value)}</time>
       </td>
      </tr>
