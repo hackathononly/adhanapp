@@ -10,12 +10,10 @@ import {
 
 const location = Astro.params.zone
     ? getLocationFromZone(Astro.params.zone)
-    : Constants.defaultSettings.waktuSolatCity ||
-      localStorage.getItem("location"),
+    : Constants.defaultSettings.city || localStorage.getItem("location"),
   zone = Astro.params.zone
     ? Astro.params.zone
-    : Constants.defaultSettings.waktuSolatStateCode ||
-      localStorage.getItem("zone");
+    : Constants.defaultSettings.zone || localStorage.getItem("zone");
 
 const { hijri, date, day } = getWaktuSolat(zone);
 ---

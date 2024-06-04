@@ -1,7 +1,10 @@
 import MainData from "../src/prayertime/2024.json";
 import Constants from "./constants.js";
 
-export function hello() {
+export function downloadWaktuSolatByZone(zone: any) {
+  const baseURL =
+    "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&period=year&zone=" +
+    zone;
   return "hello";
 }
 
@@ -11,8 +14,7 @@ export function getZoneFromURL() {
     zone =
       pathname !== "/"
         ? decodeURI(pathname).split("/")[2].replace("/", "")
-        : Constants.defaultSettings.waktuSolatState;
-
+        : Constants.defaultSettings.zone;
   return zone;
 }
 
@@ -53,7 +55,7 @@ export function getWaktuSolat(zone: any) {
   }
 
   const currentCity: CurrentCity = {
-    zone: zone || Constants.defaultSettings.waktuSolatStateCode,
+    zone: zone || Constants.defaultSettings.zone,
   };
 
   interface MainDatas {

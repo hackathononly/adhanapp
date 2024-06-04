@@ -5,21 +5,6 @@ const { zone } = Astro.params;
 const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
 ---
 
-<script>
- import { getWaktuSolat, getClosestPrayerTime, getZoneFromURL } from "../util";
-
- const zone = getZoneFromURL();
- const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
- const closestTime = getClosestPrayerTime(filteredObject);
-
- const tds = [...document.querySelectorAll("td")];
- tds.map((td) => {
-  if (td.innerHTML.includes(closestTime)) {
-   td.closest("tr")?.classList.add("currentPrayerTime");
-  }
- });
-</script>
-
 <div class="overflow-x-auto">
  <table class="table">
   <thead>

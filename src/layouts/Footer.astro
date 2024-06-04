@@ -1,3 +1,24 @@
+<script>
+	import { getWaktuSolat, getClosestPrayerTime, getZoneFromURL } from "../util";
+
+	document.addEventListener(
+		"DOMContentLoaded",
+		function () {
+			const zone = getZoneFromURL();
+			const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
+			const closestTime = getClosestPrayerTime(filteredObject);
+
+			const tds = [...document.querySelectorAll("td")];
+			tds.map((td) => {
+				if (td.innerHTML.includes(closestTime)) {
+					td.closest("tr")?.classList.add("currentPrayerTime");
+				}
+			});
+		},
+		false,
+	);
+</script>
+
 <footer class="footer-center p-6 text-base-content sticky top-[100vh]" <aside>
 	<a class="inline-block text-xs" href="/" title="back to home"> adhan.app </a>
 	<div class="dropdown dropdown-top dropdown-end">

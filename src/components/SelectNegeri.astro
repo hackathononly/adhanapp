@@ -6,7 +6,7 @@ const { pathname } = Astro.url;
 const negeriLabel =
 	pathname !== "/"
 		? decodeURI(pathname).split("/")[1].replace("/", "")
-		: Constants.defaultSettings.waktuSolatState;
+		: Constants.defaultSettings.state;
 ---
 
 <button class="btn btn-ghost ml-2" onclick="my_modal_1.showModal()">
