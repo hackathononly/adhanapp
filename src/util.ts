@@ -5,6 +5,17 @@ export function hello() {
   return "hello";
 }
 
+export function getZoneFromURL() {
+  const currentURL = new URL(window.location.href),
+    pathname = currentURL.pathname,
+    zone =
+      pathname !== "/"
+        ? decodeURI(pathname).split("/")[2].replace("/", "")
+        : Constants.defaultSettings.waktuSolatState;
+
+  return zone;
+}
+
 export function getLocationFromZone(zone: any) {
   return Object.entries(Constants.locations).map(([key, value]: any) => {
     return Object.prototype.hasOwnProperty.call(value, zone) ? value[zone] : "";

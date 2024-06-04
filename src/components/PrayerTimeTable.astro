@@ -1,16 +1,23 @@
 ---
-import { getClosestPrayerTime, getWaktuSolat, timeString12hr } from "../util";
+import { getWaktuSolat, timeString12hr } from "../util";
 
 const { zone } = Astro.params;
 const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
-console.log(filteredObject);
-const closestTime = getClosestPrayerTime(filteredObject);
 ---
 
 <script>
- import { getWaktuSolat, getClosestPrayerTime } from "../util";
- const zone = "WLY01";
- console.log(getWaktuSolat(zone), getClosestPrayerTime);
+ import { getWaktuSolat, getClosestPrayerTime, getZoneFromURL } from "../util";
+
+ const zone = getZoneFromURL();
+ const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
+ const closestTime = getClosestPrayerTime(filteredObject);
+
+ const tds = [...document.querySelectorAll("td")];
+ tds.map((td) => {
+  if (td.innerHTML.includes(closestTime)) {
+   td.closest("tr")?.classList.add("currentPrayerTime");
+  }
+ });
 </script>
 
 <div class="overflow-x-auto">
@@ -26,9 +33,7 @@ const closestTime = getClosestPrayerTime(filteredObject);
     Object.entries(filteredObject).map(([key, value]) => (
      <tr>
       <td>{key}</td>
-      <!--<td class={key == closestTime ? "currentPrayerTime" : ""}>{key}</td>-->
       <td>
-       <!--class={value == filteredObject[closestTime] ? "currentPrayerTime" : ""}-->
        <time>{timeString12hr(value)}</time>
       </td>
      </tr>
