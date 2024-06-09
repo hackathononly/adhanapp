@@ -27,6 +27,6 @@ export async function fetchDatas(url) {
     if (!("prayerTime" in response)) {
       throw new Error("Invalid response.");
     }
-    return response.prayerTime;
+    return response;
   });
 }
