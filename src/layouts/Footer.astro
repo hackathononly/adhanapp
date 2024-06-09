@@ -1,11 +1,12 @@
+<!--
 <script>
-	import { getWaktuSolat, getClosestPrayerTime, getZoneFromURL } from "../util";
+	import { getPrayerTime, getClosestPrayerTime, getZoneFromURL } from "../util";
 
 	document.addEventListener(
 		"DOMContentLoaded",
 		function () {
 			const zone = getZoneFromURL();
-			const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
+			const { hijri, date, day, ...filteredObject } = getPrayerTime(zone); // exclude hijri, date, day
 			const closestTime = getClosestPrayerTime(filteredObject);
 
 			const tds = [...document.querySelectorAll("td")];
@@ -16,9 +17,9 @@
 			});
 		},
 		false,
-	);
+);
 </script>
-
+-->
 <footer class="footer-center p-6 text-base-content sticky top-[100vh]" <aside>
 	<a class="inline-block text-xs" href="/" title="back to home"> adhan.app </a>
 	<div class="dropdown dropdown-top dropdown-end">

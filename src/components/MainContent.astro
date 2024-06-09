@@ -3,19 +3,38 @@ import PrayerTimeTable from "./PrayerTimeTable.astro";
 import RandomTazkirah from "./RandomTazkirah.astro";
 import Constants from "../constants";
 import {
-  getWaktuSolat,
+  getFormattedDate,
   getLocationFromZone,
   convertDateMonthDay,
 } from "../util";
 
-const location = Astro.params.zone
-    ? getLocationFromZone(Astro.params.zone)
+const zoneParam = Astro.params.zone,
+  location = zoneParam
+    ? getLocationFromZone(zoneParam)
     : Constants.defaultSettings.city || localStorage.getItem("location"),
-  zone = Astro.params.zone
-    ? Astro.params.zone
+  zone = zoneParam
+    ? zoneParam
     : Constants.defaultSettings.zone || localStorage.getItem("zone");
 
-const { hijri, date, day } = getWaktuSolat(zone);
+async function getPrayerTimeByZone() {
+  return await import(`../prayertimes/2024/${zone}.json`); // return await import("../prayertimes/2024/JHR01.json");
+}
+
+async function getPrayerTimeDatas() {
+  const allDatas = await getPrayerTimeByZone();
+  const prayerTimeData = allDatas.prayerTime;
+  const prayerTime = {};
+
+  for (const key in prayerTimeData) {
+    if (prayerTimeData[key].date === getFormattedDate()) {
+      Object.assign(prayerTime, prayerTimeData[key]);
+    }
+  }
+
+  return prayerTime;
+}
+
+const { hijri, date, day } = await getPrayerTimeDatas();
 ---
 
 <div class="nav py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -30,7 +49,7 @@ const { hijri, date, day } = getWaktuSolat(zone);
     <h3>{location}</h3>
   </div>
   <div class="p-4 border rounded-box border-gray-700">
-    <PrayerTimeTable />
+    <PrayerTimeTable data={await getPrayerTimeDatas()} />
   </div>
   <div class="p-4 border rounded-box border-gray-700">
     <RandomTazkirah />

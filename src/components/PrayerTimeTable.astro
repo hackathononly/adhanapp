@@ -1,8 +1,8 @@
 ---
-import { getWaktuSolat, timeString12hr } from "../util";
+import { timeString12hr } from "../util";
 
-const { zone } = Astro.params;
-const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude hijri, date, day
+const { data } = Astro.props;
+const { hijri, date, day, ...prayerTime } = data;
 ---
 
 <div class="overflow-x-auto">
@@ -15,7 +15,7 @@ const { hijri, date, day, ...filteredObject } = getWaktuSolat(zone); // exclude 
   </thead>
   <tbody>
    {
-    Object.entries(filteredObject).map(([key, value]) => (
+    Object.entries(prayerTime).map(([key, value]) => (
      <tr>
       <td>{key}</td>
       <td>

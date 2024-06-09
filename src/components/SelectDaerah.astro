@@ -1,19 +1,22 @@
 ---
+import Constants from "../constants";
 const { states, zones } = Astro.props;
 const { zone } = Astro.params;
+
+const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 ---
 
 <div id="daerahList">
 	<div class="overflow-y-auto w-max">
 		<div class="stats shadow py-2">
 			{
-				zones.map((el: any) => (
+				zones.map((zone: any) => (
 					<div class="relative stat pt-0 pb-2 -ml-5">
 						<div class="stat-figure text-gray-400">
 							<a
 								href="#"
 								class="selected absolute top-0 left-5"
-								title={"Set " + el[0] + " as default location"}
+								title={"Set " + zone[0] + " as default location"}
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -30,24 +33,24 @@ const { zone } = Astro.params;
 								</svg>
 							</a>
 						</div>
-						<a href={"/" + states + "/" + el[0]}>
+						<a href={"/" + states + "/" + zone[0]}>
 							<div
 								class={
-									el.indexOf(zone) == 0
+									zone.indexOf(zoneParam) == 0
 										? "ml-6 mb-2 stat-title text-white"
 										: "ml-6 mb-2 stat-title text-gray-400"
 								}
 							>
-								{el[0]}
+								{zone[0]}
 							</div>
 							<div
 								class={
-									el.indexOf(zone) == 0
+									zone.indexOf(zoneParam) == 0
 										? "w-40 text-xs flex-initial break-words text-white"
 										: "w-40 text-xs flex-initial break-words text-gray-400"
 								}
 							>
-								{el[1]}
+								{zone[1]}
 							</div>
 						</a>
 					</div>
