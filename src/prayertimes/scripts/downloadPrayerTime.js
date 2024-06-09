@@ -18,17 +18,18 @@ for (const state in Constants.locations) {
 
   for (const zone in zones) {
     fetchPrayerTimes(zone).then((datas) => {
-      const prayertimes = datas.prayerTime;
+      const prayertimes = datas;
+
       console.log(`Fetched ${prayertimes.length} prayertimes`);
 
-      prayertimes.forEach((prayertime) => {
-        const filename = getFileName("./src/prayertimes/2024", zone);
-        if (!fs.existsSync(filename)) {
-          console.log("Creating a new prayertime cache file for", filename);
-          fs.writeFileSync(filename, JSON.stringify([prayertime], null, 2));
-          return;
-        }
-      });
+      const filename = getFileName("../2024", zone);
+
+      //   if (!fs.existsSync(filename)) {
+      //     console.log("Creating a new prayertime cache file for", filename);
+      fs.writeFileSync(filename, JSON.stringify([prayertimes], null, 2));
+      //     return;
+      //   }
+
       console.log("Done syncing prayer times");
     });
   }
