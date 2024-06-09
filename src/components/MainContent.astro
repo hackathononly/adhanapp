@@ -23,7 +23,7 @@ async function getPrayerTimeByZone() {
 async function getPrayerTimeDatas() {
   const allDatas = await getPrayerTimeByZone();
   const prayerTimeData = allDatas.prayerTime;
-  const prayerTime = {};
+  let prayerTime: any = {};
 
   for (const key in prayerTimeData) {
     if (prayerTimeData[key].date === getFormattedDate()) {
