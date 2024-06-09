@@ -1,12 +1,34 @@
-<!--
 <script>
-	import { getPrayerTime, getClosestPrayerTime, getZoneFromURL } from "../util";
+	import {
+		getFormattedDate,
+		getClosestPrayerTime,
+		getZoneFromURL,
+	} from "../util";
+
+	const zone = getZoneFromURL();
+	async function getPrayerTimeByZone() {
+		return await import(`../prayertimes/2024/${zone}.json`); // return await import("../prayertimes/2024/JHR01.json");
+	}
+
+	async function getPrayerTimeDatas() {
+		const allDatas = await getPrayerTimeByZone();
+		const prayerTimeData = allDatas.default[0].prayerTime;
+		let prayerTime: any = {};
+
+		for (const key in prayerTimeData) {
+			if (prayerTimeData[key].date === getFormattedDate()) {
+				Object.assign(prayerTime, prayerTimeData[key]);
+			}
+		}
+
+		return prayerTime;
+	}
 
 	document.addEventListener(
 		"DOMContentLoaded",
-		function () {
-			const zone = getZoneFromURL();
-			const { hijri, date, day, ...filteredObject } = getPrayerTime(zone); // exclude hijri, date, day
+		async function () {
+			const { hijri, date, day, ...filteredObject } =
+				await getPrayerTimeDatas();
 			const closestTime = getClosestPrayerTime(filteredObject);
 
 			const tds = [...document.querySelectorAll("td")];
@@ -17,9 +39,9 @@
 			});
 		},
 		false,
-);
+	);
 </script>
--->
+
 <footer class="footer-center p-6 text-base-content sticky top-[100vh]" <aside>
 	<a class="inline-block text-xs" href="/" title="back to home"> adhan.app </a>
 	<div class="dropdown dropdown-top dropdown-end">
