@@ -1,0 +1,36 @@
+name: Prayertimes Sync
+
+concurrency:
+  group: prayertimes_sync
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: "0 */24 * * *"
+  workflow_dispatch:
+
+  # IFTT webhook
+  repository_dispatch:
+    types:
+      - prayertimes_webhook
+
+jobs:
+  webmentions-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Sync prayertimes
+        run: node ./src/downloadPrayerTime.ts
+      - name: Commit to repository
+        env:
+          GH_PAGES_ACCESS_TOKEN: ${{ secrets.GH_PAGES_ACCESS_TOKEN }}
+          COMMIT_MSG: |
+            Sync prayertimes
+        run: |
+          git config user.email "greenjeli@gmail.com"
+          git config user.name "Ahmad Albakri Zabri"
+          git remote set-url origin https://x-access-token:${GH_PAGES_ACCESS_TOKEN}@github.com/ahmadalbakri/portfolio.git
+          git checkout main 
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin main)
