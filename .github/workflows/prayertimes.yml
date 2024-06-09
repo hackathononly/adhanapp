@@ -15,7 +15,7 @@ on:
       - prayertimes_webhook
 
 jobs:
-  webmentions-sync:
+  prayertimes-sync:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
