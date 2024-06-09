@@ -24,12 +24,9 @@ export async function fetchDatas(url) {
         reject(error);
       });
   }).then((response) => {
-    /*
-      if (!("prayerTime" in response)) {
+    if (!("prayerTime" in response)) {
       throw new Error("Invalid response.");
     }
     return response.prayerTime;
-    */
-    return response;
   });
 }
