@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { getFileName, fetchDatas } from "../scripts/action.js";
-import Constants from "./constants";
+import Constants from "../../constants.js";
 
 async function fetchPrayerTimes(zone) {
   const baseURL =
