@@ -22,7 +22,7 @@ for (const state in Constants.locations) {
 
       prayertimes.forEach((prayertime) => {
         //const filename = getFileName("../src/prayertimes/2024", zone);
-        const filename = getFileName("./prayertimes/2024/", zone);
+        const filename = getFileName("./prayertimes/2024", zone);
 
         if (!fs.existsSync(filename)) {
           console.log("Creating a new prayertime cache file for", filename);
