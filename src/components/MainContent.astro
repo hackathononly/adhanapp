@@ -22,7 +22,7 @@ async function getPrayerTimeByZone() {
 
 async function getPrayerTimeDatas() {
   const allDatas = await getPrayerTimeByZone();
-  const prayerTimeData = allDatas.prayerTime;
+  const prayerTimeData = allDatas.default[0].prayerTime;
   let prayerTime: any = {};
 
   for (const key in prayerTimeData) {
