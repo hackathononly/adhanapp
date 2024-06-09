@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { getFileName, fetchDatas } from "./util";
+import { getFileName, fetchDatas } from "../scripts/action.js";
 import Constants from "./constants";
 
 async function fetchPrayerTimes(zone) {
