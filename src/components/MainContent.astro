@@ -7,7 +7,7 @@ import {
   getLocationFromZone,
   convertDateMonthDay,
 } from "../util";
-
+console.log(getFormattedDate());
 const zoneParam = Astro.params.zone,
   location = zoneParam
     ? getLocationFromZone(zoneParam)
@@ -17,7 +17,7 @@ const zoneParam = Astro.params.zone,
     : Constants.defaultSettings.zone || localStorage.getItem("zone");
 
 async function getPrayerTimeByZone() {
-  return await import(`../prayertimes/2024/${zone}.json`); // return await import("../prayertimes/2024/JHR01.json");
+  return await import(`../prayertimes/2024/${zone}.json`);
 }
 
 async function getPrayerTimeDatas() {
