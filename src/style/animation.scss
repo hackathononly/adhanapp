@@ -44,7 +44,7 @@ $sparkle-r: 0.5 * $sparkle-d;
 }
 input[id^="toggle-heart_"] {
   position: absolute;
-  left: -200vw;
+  left: -1200vw;
 
   &:checked + label {
     color: #e2264d;
@@ -68,7 +68,7 @@ input[id^="toggle-heart_"] {
       animation-name: sparkles;
     }
   }
-
+  /*
   &:focus + label {
     text-shadow:
       0 0 3px white,
@@ -76,7 +76,7 @@ input[id^="toggle-heart_"] {
       0 -1px 1px white,
       1px 0 1px white,
       -1px 0 1px white;
-  }
+  }*/
 }
 
 [for^="toggle-heart_"] {
