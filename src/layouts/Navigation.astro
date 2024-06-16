@@ -34,14 +34,16 @@ const states =
 			</div>
 			<div
 				tabindex="0"
-				class={Object.keys(Astro.params).length < 2
-					? "collapse collapse-arrow hidden2"
-					: "collapse collapse-arrow"}
+				class={"collapse collapse-arrow " +
+					(Object.keys(Astro.params).length < 2 ? "hidden2" : "")}
 			>
 				<input type="checkbox" class="peer" />
-				<div class="collapse-title peer-checked:text-secondary-content"></div>
 				<div
-					class="p-0 overflow-y-auto collapse-content peer-checked:text-secondary-content"
+					class="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content"
+				>
+				</div>
+				<div
+					class="p-0 overflow-y-auto collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content"
 				>
 					<SelectDaerah states={states} zones={zones} />
 				</div>
