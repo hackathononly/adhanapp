@@ -9,10 +9,10 @@ const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 
 <div id="daerahList">
 	<div class="overflow-y-auto w-max">
-		<div class="stats shadow py-2 overflow-hidden">
+		<div class="stats shadow py-2 overflow-hidden -ml-5">
 			{
 				zones.map((zone: any) => (
-					<div class="relative stat pt-0 pb-2 -ml-5">
+					<div id={"zone-" + zone[0]} class="relative stat pt-0 pb-2">
 						<div class="stat-figure text-gray-400 bg-base-300">
 							<a
 								href="#"

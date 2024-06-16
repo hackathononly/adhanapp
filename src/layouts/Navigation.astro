@@ -39,7 +39,14 @@ const states =
 					: "collapse collapse-arrow"}
 			>
 				<input type="checkbox" />
-				<div class="p-0 collapse-content overflow-y-auto">
+				<div
+					class="collapse-title peer-checked:bg-secondary peer-checked:text-secondary-content"
+				>
+				</div>
+				<!--				<div class="p-0 collapse-content overflow-y-auto">-->
+				<div
+					class="p-0 overflow-hidden overflow-y-auto collapse-content peer-checked:bg-secondary peer-checked:text-secondary-content"
+				>
 					<SelectDaerah states={states} zones={zones} />
 				</div>
 			</div>
