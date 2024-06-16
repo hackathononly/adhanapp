@@ -12,11 +12,11 @@ const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 		<div class="stats shadow py-2 overflow-hidden -ml-5">
 			{
 				zones.map((zone: any) => (
-					<div id={"zone-" + zone[0]} class="relative stat pt-0 pb-2">
+					<div id={"zone-" + zone[0]} class="relative stat pt-0 pb-0">
 						<div class="stat-figure text-gray-400 bg-base-300">
 							<a
 								href="#"
-								class="absolute -top-1 right-8 z-50"
+								class="absolute bottom-0 left-6 z-50"
 								title={"Set " + zone[0] + " as default location"}
 							>
 								<input id={"toggle-heart_" + zone[0]} type="checkbox" />
@@ -29,25 +29,27 @@ const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 								</label>{" "}
 							</a>
 						</div>
-						<a href={"/" + states + "/" + zone[0]}>
-							<div
+						<a class="pb-6" href={"/" + states + "/" + zone[0]}>
+							<span
 								class={
-									zone.indexOf(zoneParam) == 0
-										? "hidden mb-2 stat-title text-white"
-										: "hidden mb-2 stat-title text-gray-400"
+									"hidden mb-2 stat-title " +
+									(zone.indexOf(zoneParam) == 0
+										? "text-white"
+										: "text-gray-400")
 								}
 							>
 								{zone[0]}
-							</div>
-							<div
+							</span>
+							<span
 								class={
-									zone.indexOf(zoneParam) == 0
-										? "w-40 text-xs flex-initial break-words text-white"
-										: "w-40 text-xs flex-initial break-words text-gray-400"
+									"inline-block w-52 text-xs flex-initial break-words " +
+									(zone.indexOf(zoneParam) == 0
+										? "text-white"
+										: "text-gray-400")
 								}
 							>
 								{zone[1]}
-							</div>
+							</span>
 						</a>
 					</div>
 				))
