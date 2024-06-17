@@ -9,7 +9,7 @@ const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 
 <div id="daerahList">
 	<div class="overflow-y-auto w-max">
-		<div class="stats shadow py-2 overflow-hidden -ml-5">
+		<div class="stats py-2 overflow-hidden -ml-5">
 			{
 				zones.map((zone: any) => (
 					<div id={"zone-" + zone[0]} class="relative stat pt-0 pb-0">
@@ -21,7 +21,11 @@ const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 								class="absolute bottom-0 left-6 z-50"
 								title={"Set " + zone[0] + " as default location"}
 							>
-								<input id={"toggle-heart_" + zone[0]} type="checkbox" />
+								<input
+									id={"toggle-heart_" + zone[0]}
+									data-zone={zone[0]}
+									type="checkbox"
+								/>
 								<label
 									for={"toggle-heart_" + zone[0]}
 									aria-label="like"
@@ -59,3 +63,17 @@ const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 		</div>
 	</div>
 </div>
+
+<script>
+	import { handleChange } from "../util";
+
+	const checkboxContainer = document.querySelector(".stats"),
+		checkboxes = checkboxContainer.querySelectorAll('input[type="checkbox"]');
+	/*	,checkboxesSelected = checkboxContainer.querySelectorAll(
+			'input[type="checkbox"]:checked',
+		);*/
+
+	checkboxes.forEach(function (checkbox) {
+		checkbox.addEventListener("change", handleChange);
+	});
+</script>

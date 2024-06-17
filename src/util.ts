@@ -1,18 +1,5 @@
 import Constants from "./constants.js";
 
-export function getZoneFromURL() {
-  // get full URL and just filter out zone
-
-  const currentURL = new URL(window.location.href),
-    pathname = currentURL.pathname,
-    zone =
-      pathname !== "/"
-        ? decodeURI(pathname).split("/")[2].replace("/", "")
-        : Constants.defaultSettings.zone;
-
-  return zone;
-}
-
 export function getLocationFromZone(zone: any) {
   // get array of location from passed zone, e.g. ['Pulau Aur']
 
@@ -42,6 +29,8 @@ export function getFormattedDate() {
 }
 
 export function timeString12hr(time24: any) {
+  // return readable time for PrayerTimeTable in H:MM AM/PM format
+
   return new Date("1970-01-01T" + time24 + "Z").toLocaleTimeString("en-US", {
     timeZone: "UTC",
     hour12: true,
@@ -51,6 +40,8 @@ export function timeString12hr(time24: any) {
 }
 
 export function getClosestPrayerTime(filteredObject: any) {
+  // return closet prayer time with given time
+
   const currentDate = new Date(),
     currentTime = currentDate.getTime();
 
@@ -74,4 +65,67 @@ export function getClosestPrayerTime(filteredObject: any) {
     }
   }
   return closestTime;
+}
+
+export function handleChange() {
+  // handle checkbox change for SelectDaerah
+
+  if (localStorage.getItem("selectedZone") === null) {
+    // has record
+    const selectedZone = JSON.parse(localStorage.getItem("selectedZone"));
+  } else {
+    // no record
+    localStorage.setItem(
+      "selectedZone",
+      JSON.stringify(this.getAttribute("data-zone")),
+    );
+  }
+}
+
+export function getZone() {
+  // return zone from 3 source below:
+  // 1. check localStorage
+  // 2. check pathname from URL
+  // 3. check constant defaultSettings
+
+  const currentURL = new URL(window.location.href),
+    pathname = currentURL.pathname,
+    selectedZone = JSON.parse(localStorage.getItem("selectedZone")),
+    zone = selectedZone
+      ? selectedZone
+      : pathname !== "/"
+        ? decodeURI(pathname).split("/")[2].replace("/", "")
+        : Constants.defaultSettings.zone;
+
+  return zone;
+}
+
+export async function getPrayerTimeByZone() {
+  return await import(`./prayertimes/2024/${getZone()}.json`);
+}
+
+export async function getPrayerTimeDatas() {
+  const allDatas = await getPrayerTimeByZone();
+  const prayerTimeData = allDatas.default[0].prayerTime;
+  let prayerTime: any = {};
+
+  for (const key in prayerTimeData) {
+    if (prayerTimeData[key].date === getFormattedDate()) {
+      Object.assign(prayerTime, prayerTimeData[key]);
+    }
+  }
+
+  return prayerTime;
+}
+
+export async function highlightClosestPrayerTime() {
+  const { hijri, date, day, ...filteredObject } = await getPrayerTimeDatas();
+  const closestTime = getClosestPrayerTime(filteredObject);
+
+  const tds = [...document.querySelectorAll("td")];
+  tds.map((td) => {
+    if (td.innerHTML.includes(closestTime)) {
+      td.closest("tr")?.classList.add("currentPrayerTime");
+    }
+  });
 }

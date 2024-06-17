@@ -1,43 +1,9 @@
 <script>
-	import {
-		getFormattedDate,
-		getClosestPrayerTime,
-		getZoneFromURL,
-	} from "../util";
-
-	const zone = getZoneFromURL();
-	async function getPrayerTimeByZone() {
-		return await import(`../prayertimes/2024/${zone}.json`);
-	}
-
-	async function getPrayerTimeDatas() {
-		const allDatas = await getPrayerTimeByZone();
-		const prayerTimeData = allDatas.default[0].prayerTime;
-		let prayerTime: any = {};
-
-		for (const key in prayerTimeData) {
-			if (prayerTimeData[key].date === getFormattedDate()) {
-				Object.assign(prayerTime, prayerTimeData[key]);
-			}
-		}
-
-		return prayerTime;
-	}
+	import { highlightClosestPrayerTime } from "../util";
 
 	document.addEventListener(
 		"DOMContentLoaded",
-		async function () {
-			const { hijri, date, day, ...filteredObject } =
-				await getPrayerTimeDatas();
-			const closestTime = getClosestPrayerTime(filteredObject);
-
-			const tds = [...document.querySelectorAll("td")];
-			tds.map((td) => {
-				if (td.innerHTML.includes(closestTime)) {
-					td.closest("tr")?.classList.add("currentPrayerTime");
-				}
-			});
-		},
+		highlightClosestPrayerTime,
 		false,
 	);
 </script>

@@ -9,12 +9,16 @@ import {
 } from "../util";
 
 const zoneParam = Astro.params.zone,
+  //  zoneLocalStorage = localStorage.getItem("selectedZone"),
   location = zoneParam
     ? getLocationFromZone(zoneParam)
     : Constants.defaultSettings.city || localStorage.getItem("location"),
+  /*  zone = zoneLocalStorage
+    ? zoneLocalStorage
+    : zoneParam || Constants.defaultSettings.zone;*/
   zone = zoneParam
     ? zoneParam
-    : Constants.defaultSettings.zone || localStorage.getItem("zone");
+    : Constants.defaultSettings.zone || localStorage.getItem("selectedZone");
 
 async function getPrayerTimeByZone() {
   return await import(`../prayertimes/2024/${zone}.json`);
