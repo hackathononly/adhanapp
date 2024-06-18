@@ -31,7 +31,7 @@ const { zones } = Astro.props;
   >
     {
       (zones as []).map((el: any) => (
-        <div class="stat rounded-lg bg-base-200 overflow-hidden shadow-lg2">
+        <div class="stat rounded-lg bg-base-200">
           <a href={"/" + state + "/" + el[0]}>
             <div class="hidden stat-title">{el[0]}</div>
             <div class="stat-desc text-wrap">{el[1]}</div>
