@@ -65,15 +65,23 @@ const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 </div>
 
 <script>
-	import { handleChange } from "../util";
-
 	const checkboxContainer = document.querySelector(".stats"),
 		checkboxes = checkboxContainer.querySelectorAll('input[type="checkbox"]');
-	/*	,checkboxesSelected = checkboxContainer.querySelectorAll(
-			'input[type="checkbox"]:checked',
-		);*/
 
 	checkboxes.forEach(function (checkbox) {
-		checkbox.addEventListener("change", handleChange);
+		checkbox.addEventListener("change", (event) => {
+			if (event !== null && event.target instanceof HTMLElement) {
+				if (localStorage.getItem("selectedZone") === null) {
+					// has record
+					return JSON.parse(localStorage.getItem("selectedZone"));
+				} else {
+					// no record
+					localStorage.setItem(
+						"selectedZone",
+						JSON.stringify(event.target.dataset.zone),
+					);
+				}
+			}
+		});
 	});
 </script>

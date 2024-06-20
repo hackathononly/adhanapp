@@ -67,21 +67,6 @@ export function getClosestPrayerTime(filteredObject: any) {
   return closestTime;
 }
 
-export function handleChange() {
-  // handle checkbox change for SelectDaerah
-
-  if (localStorage.getItem("selectedZone") === null) {
-    // has record
-    const selectedZone = JSON.parse(localStorage.getItem("selectedZone"));
-  } else {
-    // no record
-    localStorage.setItem(
-      "selectedZone",
-      JSON.stringify(this.getAttribute("data-zone")),
-    );
-  }
-}
-
 export function getZone() {
   // return zone from 3 source below:
   // 1. check localStorage
