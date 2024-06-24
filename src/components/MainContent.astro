@@ -21,7 +21,7 @@ const zoneParam = Astro.params.zone,
     : Constants.defaultSettings.zone || localStorage.getItem("selectedZone");
 
 async function getPrayerTimeByZone() {
-  return await import(`../prayertimes/2024/${zone}.json`);
+  return await import(`/src/prayertimes/2024/${zone}.json`);
 }
 
 async function getPrayerTimeDatas() {
