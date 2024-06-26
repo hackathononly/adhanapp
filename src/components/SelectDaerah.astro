@@ -38,16 +38,6 @@ const zoneParam = zone ? zone : Constants.defaultSettings.zone;
 						<a class="pb-6" href={"/" + states + "/" + zone[0]}>
 							<span
 								class={
-									"hidden mb-2 stat-title " +
-									(zone.indexOf(zoneParam) == 0
-										? "text-white"
-										: "text-gray-500")
-								}
-							>
-								{zone[0]}
-							</span>
-							<span
-								class={
 									"inline-block text-xs flex-initial break-words " +
 									(zone.indexOf(zoneParam) == 0
 										? "text-white"
