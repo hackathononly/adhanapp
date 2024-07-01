@@ -44,7 +44,7 @@ const negeriLabel =
 		</form>
 	</div>
 
-	<div class="modal-box">
+	<div class="modal-box border rounded-box border-gray-700">
 		<div class="drawer auto-cols-auto">
 			{
 				Object.keys(Constants.locations).map((state: any) => (
@@ -63,11 +63,14 @@ const negeriLabel =
 								aria-label="close sidebar"
 								class="drawer-overlay"
 							/>
-							<ul class="menu bg-base-200 text-base-content min-h-full w-80 p-6">
+							<ul class="bg-base-200 text-base-content min-h-full md:w-70 sm:w-96 lg:w-96 w-72 p-6">
 								{Object.keys((Constants.locations as any)[state]).map(
 									(zone) => (
 										<li>
-											<a href={"/" + state + "/" + zone}>
+											<a
+												class="text-sm py-2 block"
+												href={"/" + state + "/" + zone}
+											>
 												{(Constants.locations as any)[state][zone]}
 											</a>
 										</li>

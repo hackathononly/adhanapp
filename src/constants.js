@@ -91,7 +91,7 @@ const Constants = {
         "Gua Musang (Daerah Galas Dan Bertam), Jeli,  Jajahan Kecil Lojing",
     },
     Melaka: {
-      MLK01: "SELURUH NEGERI MELAKA ",
+      MLK01: "Seluruh Negeri Melaka",
     },
     "Negeri Sembilan": {
       NGS01: "Tampin, Jempol",
