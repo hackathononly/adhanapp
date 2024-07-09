@@ -8,20 +8,18 @@ import {
   convertDateMonthDay,
 } from "../util";
 
-const zoneParam = Astro.params.zone,
-  //  zoneLocalStorage = localStorage.getItem("selectedZone"),
-  location = zoneParam
-    ? getLocationFromZone(zoneParam)
-    : Constants.defaultSettings.city || localStorage.getItem("location"),
-  /*  zone = zoneLocalStorage
-    ? zoneLocalStorage
-    : zoneParam || Constants.defaultSettings.zone;*/
-  zone = zoneParam
-    ? zoneParam
-    : Constants.defaultSettings.zone || localStorage.getItem("selectedZone");
+const { tooltipContent, locationsImageDetails } = Constants;
+const { state, zone } = Astro.params;
+//  zoneLocalStorage = localStorage.getItem("selectedZone"),
+const location = zone
+  ? getLocationFromZone(zone)
+  : Constants.defaultSettings.city || localStorage.getItem("location");
+const zoneNew = zone
+  ? zone
+  : Constants.defaultSettings.zone || localStorage.getItem("selectedZone");
 
 async function getPrayerTimeByZone() {
-  return await import(`../prayertimes/2024/${zone}.json`);
+  return await import(`../prayertimes/2024/${zoneNew}.json`);
 }
 
 async function getPrayerTimeDatas() {
@@ -42,7 +40,15 @@ const { hijri, date, day } = await getPrayerTimeDatas();
 ---
 
 <div class="nav py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-  <div class="p-4 bg-base-200 border2 rounded-box border-gray-700">
+  <!--
+style={{
+      background:
+        `url("/locations/` +
+        zoneNew +
+        `.avif") center center / cover no-repeat`,
+    }}
+-->
+  <div class="relative p-4 bg-base-200 border2 rounded-box border-gray-700">
     <div class="flex pb-4">
       <ul class="text-xs text-gray-400">
         <li class="hidden">{hijri}</li>
@@ -51,6 +57,24 @@ const { hijri, date, day } = await getPrayerTimeDatas();
       </ul>
     </div>
     <h3>{location}</h3>
+    <!--<div
+      class="absolute bottom-2 right-4 tooltip tooltip-open2 tooltip-left"
+      data-tip={tooltipContent(
+        (locationsImageDetails as any)[state][zoneNew].author,
+      )}
+    >
+      <svg
+        class="inline-block h-4 w-4 fill-current"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        ><path
+          fill-rule="evenodd"
+          d="M12,23 C5.92486775,23 1,18.0751322 1,12 C1,5.92486775 5.92486775,1 12,1 C18.0751322,1 23,5.92486775 23,12 C23,18.0751322 18.0751322,23 12,23 Z M12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.02943725 16.9705627,3 12,3 C7.02943725,3 3,7.02943725 3,12 C3,16.9705627 7.02943725,21 12,21 Z M12.0003283,16.9983464 C11.4478622,16.9983464 11,16.5506311 11,15.9983464 C11,15.4460616 11.4478622,14.9983464 12.0003283,14.9983464 C12.5527943,14.9983464 13.0006565,15.4460616 13.0006565,15.9983464 C13.0006565,16.5506311 12.5527943,16.9983464 12.0003283,16.9983464 Z M13,14 L11,14 C11,12.2983529 11.6245803,11.5696759 13.0527864,10.8555728 C13.8745803,10.4446759 14,10.2983529 14,9.5 C14,8.556407 13.2771608,8 12,8 C10.8954305,8 10,8.8954305 10,10 L8,10 C8,7.790861 9.790861,6 12,6 C14.2843464,6 16,7.32062807 16,9.5 C16,11.2016471 15.3754197,11.9303241 13.9472136,12.6444272 C13.1254197,13.0553241 13,13.2016471 13,14 Z"
+        ></path></svg
+      >
+    </div>-->
   </div>
   <div class="p-4 rounded-box shadow bg-base-200">
     <PrayerTimeTable data={await getPrayerTimeDatas()} />
