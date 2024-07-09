@@ -8,8 +8,7 @@ import {
   convertDateMonthDay,
 } from "../util";
 
-const { tooltipContent, locationsImageDetails } = Constants;
-const { state, zone } = Astro.params;
+const { zone } = Astro.params;
 //  zoneLocalStorage = localStorage.getItem("selectedZone"),
 const location = zone
   ? getLocationFromZone(zone)
