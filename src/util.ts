@@ -21,7 +21,10 @@ export function getFormattedDate() {
 
   const currentDate = new Date(),
     dd = String(currentDate.getDate()).padStart(2, "0"),
-    month = currentDate.toLocaleString("default", { month: "short" }),
+    month = currentDate.toLocaleString("default", {
+      timeZone: "Asia/Kuala_Lumpur",
+      month: "short",
+    }),
     year = currentDate.getFullYear(),
     formattedDate = `${dd}-${month}-${year}`;
 
@@ -32,7 +35,7 @@ export function timeString12hr(time24: any) {
   // return readable time for PrayerTimeTable in H:MM AM/PM format
 
   return new Date("1970-01-01T" + time24 + "Z").toLocaleTimeString("en-US", {
-    timeZone: "UTC",
+    timeZone: "Asia/Kuala_Lumpur",
     hour12: true,
     hour: "numeric",
     minute: "numeric",
