@@ -21,10 +21,7 @@ export function getFormattedDate() {
 
   const currentDate = new Date(),
     dd = String(currentDate.getDate()).padStart(2, "0"),
-    month = currentDate.toLocaleString("default", {
-      timeZone: "Asia/Kuala_Lumpur",
-      month: "short",
-    }),
+    month = currentDate.toLocaleString("default", { month: "short" }),
     year = currentDate.getFullYear(),
     formattedDate = `${dd}-${month}-${year}`;
 
@@ -35,7 +32,7 @@ export function timeString12hr(time24: any) {
   // return readable time for PrayerTimeTable in H:MM AM/PM format
 
   return new Date("1970-01-01T" + time24 + "Z").toLocaleTimeString("en-US", {
-    timeZone: "Asia/Kuala_Lumpur",
+    timeZone: "UTC",
     hour12: true,
     hour: "numeric",
     minute: "numeric",
@@ -68,6 +65,21 @@ export function getClosestPrayerTime(filteredObject: any) {
     }
   }
   return closestTime;
+}
+
+export function handleChange(event: InputEvent) {
+  // handle checkbox change for SelectDaerah
+
+  if (localStorage.getItem("selectedZone") === null) {
+    // has record
+    return JSON.parse(localStorage.getItem("selectedZone"));
+  } else {
+    // no record
+    /*    localStorage.setItem(
+      "selectedZone",
+      JSON.stringify(this.getAttribute("data-zone")),
+    );*/
+  }
 }
 
 export function getZone() {
