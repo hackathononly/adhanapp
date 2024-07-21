@@ -67,7 +67,7 @@ export function getClosestPrayerTime(filteredObject: any) {
   return closestTime;
 }
 
-export function handleChange(event: InputEvent) {
+export function handleChange() {
   // handle checkbox change for SelectDaerah
 
   if (localStorage.getItem("selectedZone") === null) {
