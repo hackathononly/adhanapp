@@ -1,0 +1,10 @@
+.peer:checked ~ .peer-checked\:text-secondary-content {
+  color: white !important;
+}
+/*
+ .collapse>input[type="checkbox"],
+ .collapse>input[type="radio"] {
+ 	appearance: button !important;
+ 	opacity: 1 !important;
+ }
+*/

@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Constants from "../constants.js";
+import Constants from "../constants";
 
 export async function getStaticPaths() {
   let returnedAry: any = [];
@@ -25,16 +25,26 @@ const { state } = Astro.params;
 const { zones } = Astro.props;
 ---
 
-<Layout title={"adhan.app : " + state} state={state} zones={zones}>
+<Layout
+  title={"adhan.app : " + state}
+  state={state}
+  zones={zones}
+  isIndex={false}
+>
   <div
     class="py-10 nav grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5"
   >
     {
-      (zones as []).map((el: any) => (
+      (zones as []).map((zone: string) => (
         <div class="stat rounded-lg bg-base-200 overflow-hidden">
-          <a class="flex items-center w-full" href={"/" + state + "/" + el[0]}>
+          <a
+            class="flex items-center w-full"
+            href={"/" + state + "/" + zone[0]}
+          >
             <span class="text-wrap inline-block text-sm break-words text-gray-400">
-              {el[1]}
+              <b>{zone[0]}</b>
+              <br />
+              {zone[1]}
             </span>
           </a>
         </div>

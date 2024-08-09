@@ -1,15 +1,22 @@
 ---
-import Navigation from "../layouts/Navigation.astro";
+import DefaultZoneToaster from "../components/DefaultZoneToaster";
+import Navigation from "../components/Navigation";
+//import Navigation from "../layouts/Navigation.astro";
 import Footer from "../layouts/Footer.astro";
 import "../styles/main.scss";
 
 interface Props {
 	title: string;
 	state: string;
-	zones: {};
+	zones: [];
+	isIndex: boolean;
 }
-
-const { title, state, zones } = Astro.props;
+//console.log(Astro.props, "bb");
+const { title, state, zones, isIndex } = Astro.props;
+const { zone } = Astro.params;
+//console.log("layut", Astro.props);
+//console.log(state.toString());
+//console.log(Astro.params, "param");
 ---
 
 <!doctype html>
@@ -19,20 +26,20 @@ const { title, state, zones } = Astro.props;
 		<meta name="description" content="adhan.app : waktu solat Malaysia" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<!--<link
-			rel="preload"
-			href="/fonts/inter.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin
-		/>-->
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen" tabindex="0">
-		<Navigation zones={zones} state={state} />
+		<Navigation
+			zones={zones}
+			state={state}
+			isIndex={isIndex}
+			currentZone={zone}
+			client:only="react"
+		/>
 		<main>
 			<slot />
+			<DefaultZoneToaster client:only="react" />
 		</main>
 		<Footer />
 	</body>
@@ -66,5 +73,8 @@ const { title, state, zones } = Astro.props;
 		top: 0;
 		z-index: 1;
 		position: sticky;
+	}
+	.home {
+		margin-top: 6px;
 	}
 </style>

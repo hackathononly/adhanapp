@@ -21,6 +21,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Sync prayertimes
+        using: "node20"
         run: node ./src/prayertimes/scripts/downloadPrayerTime.js
       - name: Commit to repository
         env:

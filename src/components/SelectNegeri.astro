@@ -9,7 +9,11 @@ const negeriLabel =
 		: Constants.defaultSettings.state;
 ---
 
-<button class="btn btn-ghost ml-2" onclick="my_modal_1.showModal()">
+<button
+	title="Select state"
+	class="btn btn-ghost ml-2"
+	onclick="negeriListModal.showModal()"
+>
 	{negeriLabel}<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
@@ -24,10 +28,10 @@ const negeriLabel =
 			d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"></path>
 	</svg>
 </button>
-<dialog id="my_modal_1" class="modal">
+<dialog id="negeriListModal" class="modal">
 	<div class="z-10">
 		<form method="dialog">
-			<button class="btn btn-circle btn-sm"
+			<button title="Close modal box" class="btn btn-circle btn-sm"
 				><svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-4 w-4"
@@ -76,9 +80,6 @@ const negeriLabel =
 										</li>
 									),
 								)}
-								<li class="hidden bg-gray-900">
-									<a>Back</a>
-								</li>
 							</ul>
 						</div>
 					</div>

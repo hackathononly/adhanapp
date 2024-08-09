@@ -1,5 +1,5 @@
 const Constants = {
-  tooltipContent: (authorName) => `Photo by ${authorName} on Unsplash`,
+  tooltipContent: (authorName: string) => `Photo by ${authorName} on Unsplash`,
   defaultSettings: {
     zone: "WLY01",
     state: "Wilayah Persekutuan",

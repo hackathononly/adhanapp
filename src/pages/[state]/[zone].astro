@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import MainContent from "../../components/MainContent.astro";
+import MainContent from "../../components/MainContent";
 import Constants from "../../constants";
 
 export async function getStaticPaths() {
@@ -22,14 +22,18 @@ export async function getStaticPaths() {
 	return returnedAry;
 }
 
-const { state } = Astro.params;
+const { zone, state } = Astro.params;
 const { zones, location } = Astro.props;
+
+const currentZone = zone ? zone : Constants.defaultSettings.zone;
 ---
 
 <Layout
 	title={"adhan.app : " + state + " - " + location}
 	state={state}
 	zones={zones}
+	isIndex={false}
 >
-	<MainContent />
+	<!--<MainContent currentZone={currentZone} client:load />-->
+	<MainContent isIndex={false} currentZone={currentZone} client:only="react" />
 </Layout>

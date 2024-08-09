@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import MainContent from "../components/MainContent.astro";
+import MainContent from "../components/MainContent";
 import Constants from "../constants";
 
 const state =
@@ -9,8 +9,12 @@ const state =
 	zones =
 		//localStorage.getItem("cities") ||
 		Constants.defaultSettings.waktuSolatZones;
+console.log("index", Astro.params, Astro.props);
+const { zone } = Astro.params;
+const currentZone = zone ? zone : Constants.defaultSettings.zone;
 ---
 
-<Layout title={"adhan.app : " + state} state={state} zones={zones}>
-	<MainContent />
+<Layout title={"adhan.app"} state={state} zones={zones} isIndex={true}>
+	<!--	<MainContent currentZone={currentZone} client:load />-->
+	<MainContent isIndex={true} currentZone={currentZone} client:only="react" />
 </Layout>

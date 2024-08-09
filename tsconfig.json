@@ -7,7 +7,12 @@
     "resolveJsonModule": true,
     "strictNullChecks": false,
     "paths": {
-      "*": ["*", "components/*"]
-    }
+      "*": [
+        "*",
+        "components/*"
+      ]
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   }
 }

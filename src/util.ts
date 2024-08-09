@@ -1,16 +1,31 @@
-import Constants from "./constants.js";
+import Constants from "./constants";
 
-export function getLocationFromZone(zone: any) {
-  // get array of location from passed zone, e.g. ['Pulau Aur']
+interface LocationFromZoneParams {
+  zone: string;
+}
 
-  return Object.entries(Constants.locations).map(([key, value]: any) => {
+export function getStateFromZone({ zone }: LocationFromZoneParams) {
+  // Get state from passed zone, e.g. ['Johor']
+
+  return Object.entries(Constants.locations).map(([state, value]: any) => {
+    return Object.prototype.hasOwnProperty.call(value, zone) ? state : "";
+  });
+}
+
+export function getLocationFromZone({ zone }: LocationFromZoneParams) {
+  // Get array of location from passed zone, e.g. ['Pulau Aur']
+
+  return Object.entries(Constants.locations).map(([state, value]: any) => {
     return Object.prototype.hasOwnProperty.call(value, zone) ? value[zone] : "";
   });
 }
 
-export function convertDateMonthDay(dateString: any) {
-  // return short date, e.g. Jun9
+interface ConvertDateMonthDayParams {
+  dateString: string;
+}
 
+export function convertDateMonthDay({ dateString }: ConvertDateMonthDayParams) {
+  // return short date, e.g. Jun9
   let [day, month] = dateString.split("-");
 
   return `${month}${parseInt(day, 10)}`;
@@ -28,10 +43,15 @@ export function getFormattedDate() {
   return formattedDate;
 }
 
-export function timeString12hr(time24: any) {
-  // return readable time for PrayerTimeTable in H:MM AM/PM format
+interface TimeString12hrParams {
+  time: number;
+}
 
-  return new Date("1970-01-01T" + time24 + "Z").toLocaleTimeString("en-US", {
+export function timeString12hr({ time }: TimeString12hrParams) {
+  // return readable time for PrayerTimeTable in H:MM AM/PM format
+  // Param : time = 06:00:00
+
+  return new Date("1970-01-01T" + time + "Z").toLocaleTimeString("en-US", {
     timeZone: "UTC",
     hour12: true,
     hour: "numeric",
@@ -39,49 +59,7 @@ export function timeString12hr(time24: any) {
   });
 }
 
-export function getClosestPrayerTime(filteredObject: any) {
-  // return closet prayer time with given time
-
-  const currentDate = new Date(),
-    currentTime = currentDate.getTime();
-
-  // Convert each time value to timestamp and calculate the difference
-  let closestTime: string = "";
-  let minDifference = Infinity;
-  for (const key in filteredObject) {
-    if (Object.hasOwnProperty.call(filteredObject, key)) {
-      const timeString = filteredObject[key];
-      const [hours, minutes, seconds] = timeString.split(/:| /);
-      let time = new Date();
-      time.setHours(hours);
-      time.setMinutes(minutes);
-      time.setSeconds(seconds);
-      const timeValue = time.getTime();
-      const difference = Math.abs(currentTime - timeValue);
-      if (difference < minDifference) {
-        minDifference = difference;
-        closestTime = key;
-      }
-    }
-  }
-  return closestTime;
-}
-
-export function handleChange() {
-  // handle checkbox change for SelectDaerah
-
-  if (localStorage.getItem("selectedZone") === null) {
-    // has record
-    return JSON.parse(localStorage.getItem("selectedZone"));
-  } else {
-    // no record
-    /*    localStorage.setItem(
-      "selectedZone",
-      JSON.stringify(this.getAttribute("data-zone")),
-    );*/
-  }
-}
-
+/*
 export function getZone() {
   // return zone from 3 source below:
   // 1. check localStorage
@@ -99,13 +77,17 @@ export function getZone() {
 
   return zone;
 }
+*/
 
-export async function getPrayerTimeByZone() {
-  return await import(`./prayertimes/2024/${getZone()}.json`);
+interface PrayerTimeZoneParams {
+  zone: string;
 }
 
-export async function getPrayerTimeDatas() {
-  const allDatas = await getPrayerTimeByZone();
+export async function getPrayerTimeByZone({ zone }: PrayerTimeZoneParams) {
+  const currentZone =
+    zone === undefined ? Constants.defaultSettings.zone : zone;
+  const allDatas = await import(`./prayertimes/2024/${currentZone}.json`);
+
   const prayerTimeData = allDatas.default[0].prayerTime;
   let prayerTime: any = {};
 
@@ -118,6 +100,23 @@ export async function getPrayerTimeDatas() {
   return prayerTime;
 }
 
+/*
+export async function getPrayerTimeDatas(zone: string) {
+  const allDatas = await getPrayerTimeByZone(zone);
+  const prayerTimeData = allDatas.default[0].prayerTime;
+  let prayerTime: any = {};
+
+  for (const key in prayerTimeData) {
+    if (prayerTimeData[key].date === getFormattedDate()) {
+      Object.assign(prayerTime, prayerTimeData[key]);
+    }
+  }
+
+  return prayerTime;
+}
+*/
+
+/*
 export async function highlightClosestPrayerTime() {
   const { hijri, date, day, ...filteredObject } = await getPrayerTimeDatas();
   const closestTime = getClosestPrayerTime(filteredObject);
@@ -127,5 +126,24 @@ export async function highlightClosestPrayerTime() {
     if (td.innerHTML.includes(closestTime)) {
       td.closest("tr")?.classList.add("currentPrayerTime");
     }
+  });
+}
+*/
+
+interface CheckedOnceParams {
+  checkboxes: any;
+}
+
+export function checkedOnce({ checkboxes }: CheckedOnceParams) {
+  checkboxes.forEach((checkbox: any) => {
+    checkbox.addEventListener("change", function (this: HTMLInputElement) {
+      if (this.checked) {
+        checkboxes.forEach((cb: any) => {
+          if (cb !== this) {
+            cb.checked = false;
+          }
+        });
+      }
+    });
   });
 }

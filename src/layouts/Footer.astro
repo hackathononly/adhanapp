@@ -1,5 +1,51 @@
-<script>
-	import { highlightClosestPrayerTime } from "../util";
+---
+import Constants from "../constants";
+
+const { zone } = Astro.params;
+const currentZone = zone ? zone : Constants.defaultSettings.zone;
+---
+
+<script type="module" define:vars={{ currentZone }}>
+	import { getPrayerTimeByZone } from "/src/util.ts";
+	function getClosestPrayerTime(filteredObject) {
+		// return closet prayer time with given time
+
+		const currentDate = new Date(),
+			currentTime = currentDate.getTime();
+
+		// Convert each time value to timestamp and calculate the difference
+		let closestTime = "";
+		let minDifference = Infinity;
+		for (const key in filteredObject) {
+			if (Object.hasOwnProperty.call(filteredObject, key)) {
+				const timeString = filteredObject[key];
+				const [hours, minutes, seconds] = timeString.split(/:| /);
+				let time = new Date();
+				time.setHours(hours);
+				time.setMinutes(minutes);
+				time.setSeconds(seconds);
+				const timeValue = time.getTime();
+				const difference = Math.abs(currentTime - timeValue);
+				if (difference < minDifference) {
+					minDifference = difference;
+					closestTime = key;
+				}
+			}
+		}
+		return closestTime;
+	}
+
+	async function highlightClosestPrayerTime() {
+		const { ...filteredObject } = await getPrayerTimeByZone(currentZone);
+		const closestTime = getClosestPrayerTime(filteredObject);
+
+		const tds = [...document.querySelectorAll("td")];
+		tds.map((td) => {
+			if (td.innerHTML.includes(closestTime)) {
+				td.closest("tr")?.classList.add("currentPrayerTime");
+			}
+		});
+	}
 
 	document.addEventListener(
 		"DOMContentLoaded",
@@ -12,47 +58,4 @@
 	<a class="hidden inline-block2 text-xs" href="/" title="back to home">
 		adhan.app
 	</a>
-	<div class="-ml-5 dropdown dropdown-top">
-		<div tabindex="0" role="button" class="btn btn-ghost text-sm">...</div>
-		<ul
-			tabindex="0"
-			class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
-		>
-			<li>
-				<label class="cursor-pointer label">
-					<input
-						type="checkbox"
-						title="toggle theme"
-						checked="checked"
-						class="checkbox checkbox-accent checkbox-xs"
-					/>
-					<span class="label-text">toggle theme</span>
-				</label>
-			</li>
-			<li>
-				<label class="cursor-pointer label">
-					<input
-						type="checkbox"
-						title="minimal mode"
-						checked="checked"
-						class="checkbox checkbox-accent checkbox-xs"
-					/>
-					<span class="label-text">minimal mode</span>
-				</label>
-			</li>
-			<hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-			<li>
-				<label class="cursor-pointer label">
-					<input
-						name="worksonffline"
-						type="checkbox"
-						title="works offline"
-						checked="checked"
-						class="checkbox checkbox-accent checkbox-xs"
-					/>
-					<span class="label-text">works offline</span>
-				</label>
-			</li>
-		</ul>
-	</div>
 </footer>

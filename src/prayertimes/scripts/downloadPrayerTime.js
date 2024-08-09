@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { getFileName, fetchDatas } from "../scripts/action.js";
-import Constants from "../../constants.js";
+import Constants from "../../constants";
 
 async function fetchPrayerTimes(zone) {
   const baseURL =
@@ -20,7 +20,7 @@ for (const state in Constants.locations) {
     fetchPrayerTimes(zone).then((datas) => {
       const prayertimes = datas;
 
-      console.log(`Fetched ${prayertimes.length} prayertimes`);
+      console.log(`Fetched ${prayertimes} prayertimes`);
 
       // const filename = getFileName("../2024", zone);
       const filename = getFileName("./src/prayertimes/2024", zone);
