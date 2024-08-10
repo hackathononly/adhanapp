@@ -59,26 +59,6 @@ export function timeString12hr({ time }: TimeString12hrParams) {
   });
 }
 
-/*
-export function getZone() {
-  // return zone from 3 source below:
-  // 1. check localStorage
-  // 2. check pathname from URL
-  // 3. check constant defaultSettings
-
-  const currentURL = new URL(window.location.href),
-    pathname = currentURL.pathname,
-    selectedZone = JSON.parse(localStorage.getItem("selectedZone")),
-    zone = selectedZone
-      ? selectedZone
-      : pathname !== "/"
-        ? decodeURI(pathname).split("/")[2].replace("/", "")
-        : Constants.defaultSettings.zone;
-
-  return zone;
-}
-*/
-
 interface PrayerTimeZoneParams {
   zone: string;
 }
@@ -87,6 +67,7 @@ export async function getPrayerTimeByZone({ zone }: PrayerTimeZoneParams) {
   const currentZone =
     zone === undefined ? Constants.defaultSettings.zone : zone;
   const allDatas = await import(`./prayertimes/2024/${currentZone}.json`);
+  //const allDatas = await import(`./prayertimes/2024/${zone}.json`);
 
   const prayerTimeData = allDatas.default[0].prayerTime;
   let prayerTime: any = {};
@@ -99,22 +80,6 @@ export async function getPrayerTimeByZone({ zone }: PrayerTimeZoneParams) {
 
   return prayerTime;
 }
-
-/*
-export async function getPrayerTimeDatas(zone: string) {
-  const allDatas = await getPrayerTimeByZone(zone);
-  const prayerTimeData = allDatas.default[0].prayerTime;
-  let prayerTime: any = {};
-
-  for (const key in prayerTimeData) {
-    if (prayerTimeData[key].date === getFormattedDate()) {
-      Object.assign(prayerTime, prayerTimeData[key]);
-    }
-  }
-
-  return prayerTime;
-}
-*/
 
 /*
 export async function highlightClosestPrayerTime() {

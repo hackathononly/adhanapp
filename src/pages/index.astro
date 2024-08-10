@@ -3,18 +3,14 @@ import Layout from "../layouts/Layout.astro";
 import MainContent from "../components/MainContent";
 import Constants from "../constants";
 
-const state =
-		//localStorage.getItem("state") ||
-		Constants.defaultSettings.state,
-	zones =
-		//localStorage.getItem("cities") ||
-		Constants.defaultSettings.waktuSolatZones;
-console.log("index", Astro.params, Astro.props);
+const state = Constants.defaultSettings.state;
+const zones = Constants.defaultSettings.waktuSolatZones;
+
 const { zone } = Astro.params;
 const currentZone = zone ? zone : Constants.defaultSettings.zone;
+console.log(zones, "index");
 ---
 
 <Layout title={"adhan.app"} state={state} zones={zones} isIndex={true}>
-	<!--	<MainContent currentZone={currentZone} client:load />-->
 	<MainContent isIndex={true} currentZone={currentZone} client:only="react" />
 </Layout>

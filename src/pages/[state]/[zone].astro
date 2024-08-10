@@ -26,6 +26,8 @@ const { zone, state } = Astro.params;
 const { zones, location } = Astro.props;
 
 const currentZone = zone ? zone : Constants.defaultSettings.zone;
+//console.log(Astro.params, Astro.props);
+console.log(zones);
 ---
 
 <Layout
@@ -34,6 +36,5 @@ const currentZone = zone ? zone : Constants.defaultSettings.zone;
 	zones={zones}
 	isIndex={false}
 >
-	<!--<MainContent currentZone={currentZone} client:load />-->
 	<MainContent isIndex={false} currentZone={currentZone} client:only="react" />
 </Layout>

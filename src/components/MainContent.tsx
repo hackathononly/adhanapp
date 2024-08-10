@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+// import type { ReadableAtom, WritableAtom } from "nanostores";
 import { useStore } from "@nanostores/react";
 import { defaultWaktuSolatZone } from "../store";
+import Constants from "../constants";
 
 import RandomTazkirah from "./RandomTazkirah";
 import PrayerTimeTable from "./PrayerTimeTable";
@@ -18,7 +20,9 @@ type Props = {
 
 export default function MainContent({ isIndex, currentZone }: Props) {
   const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
-  const zone = isIndex ? $defaultWaktuSolatZone : currentZone;
+  const zone = isIndex
+    ? $defaultWaktuSolatZone || Constants.defaultSettings.zone
+    : currentZone || Constants.defaultSettings.zone;
 
   //let [prayerTimeData, getPrayerTimeData] = useState<PrayerTime[]>([]);
   //let [prayerTimeData, getPrayerTimeData] = useState([]);
@@ -54,10 +58,10 @@ export default function MainContent({ isIndex, currentZone }: Props) {
               {day}
             </a>
           </li>
-          <li className="w-full pb-4 text-gray-500">
+          <li className={isIndex ? "hidden" : "w-full pb-4 text-gray-500"}>
             <a href="/month">Monthly</a>
           </li>
-          <li className="w-full pb-4 text-gray-500">
+          <li className={isIndex ? "hidden" : "w-full pb-4 text-gray-500"}>
             <a href="/year">Yearly</a>
           </li>
         </ul>

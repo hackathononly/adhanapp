@@ -13,26 +13,27 @@ type Props = {
 export default function CollapseCheckbox({
   zones,
   state,
-  currentZone,
   isIndex,
+  currentZone,
 }: Props) {
   const $collapseCheckboxStatus = useStore(collapseCheckboxStatus);
+
   // set initial state
   if ($collapseCheckboxStatus == "") {
-    collapseCheckboxStatus.set("0");
+    collapseCheckboxStatus.set("close");
   }
 
   function handleCheckbox(event: any) {
     if ("checked" in event.target) {
-      const checkedStatus = event.target.checked ? 1 : 0;
-      collapseCheckboxStatus.set(JSON.stringify(checkedStatus));
+      const checkedStatus = event.target.checked ? "open" : "close";
+      collapseCheckboxStatus.set(checkedStatus);
     }
   }
 
   return (
     <>
       {isIndex ? (
-        <div className="collapse">
+        <div className="index collapse">
           <div className="collapse-title peer-checked:text-secondary-content"></div>
         </div>
       ) : (
@@ -40,7 +41,7 @@ export default function CollapseCheckbox({
           <input
             className="peer"
             type="checkbox"
-            defaultChecked={$collapseCheckboxStatus == "1" ? true : false}
+            defaultChecked={$collapseCheckboxStatus == "open" ? true : false}
             onChange={handleCheckbox}
           />
           <div className="collapse-title peer-checked:text-secondary-content"></div>

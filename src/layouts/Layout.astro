@@ -8,15 +8,12 @@ import "../styles/main.scss";
 interface Props {
 	title: string;
 	state: string;
-	zones: [];
+	zones: any;
 	isIndex: boolean;
 }
-//console.log(Astro.props, "bb");
+
 const { title, state, zones, isIndex } = Astro.props;
 const { zone } = Astro.params;
-//console.log("layut", Astro.props);
-//console.log(state.toString());
-//console.log(Astro.params, "param");
 ---
 
 <!doctype html>
@@ -45,25 +42,6 @@ const { zone } = Astro.params;
 	</body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		background: #13151a;
-		background-size: 224px;
-	}
-	main,
-	header {
-		line-height: 1.6;
-	}
 	.nav {
 		margin: auto;
 		width: 1200px;
@@ -76,5 +54,12 @@ const { zone } = Astro.params;
 	}
 	.home {
 		margin-top: 6px;
+	}
+	.index.collapse:not(.collapse-open):not(.collapse-close)
+		> input[type="checkbox"],
+	.index.collapse:not(.collapse-open):not(.collapse-close)
+		> input[type="radio"]:not(:checked),
+	.index.collapse:not(.collapse-open):not(.collapse-close) > .collapse-title {
+		cursor: inherit;
 	}
 </style>

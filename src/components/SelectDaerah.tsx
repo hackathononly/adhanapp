@@ -4,13 +4,12 @@ import FavouriteLocation from "../components/FavouriteLocation";
 import "../styles/animation.scss";
 
 type Props = {
-  zones: [];
+  zones: any;
   state: string;
   currentZone: string;
 };
 
 export default function SelectDaerah({ zones, state, currentZone }: Props) {
-  console.log(zones, currentZone, "dsad");
   const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
   const selectedZone = $defaultWaktuSolatZone
     ? $defaultWaktuSolatZone

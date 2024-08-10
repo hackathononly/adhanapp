@@ -10,7 +10,9 @@ type Props = {
 
 export default function SelectNegeri({ isIndex, currentZone }: Props) {
   const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
-  const selectedZone = isIndex ? $defaultWaktuSolatZone : currentZone;
+  const selectedZone = isIndex
+    ? $defaultWaktuSolatZone || Constants.defaultSettings.zone
+    : currentZone;
 
   return (
     <>
@@ -19,7 +21,9 @@ export default function SelectNegeri({ isIndex, currentZone }: Props) {
         className="btn btn-ghost ml-2"
         onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           e.preventDefault();
-          negeriListModal.showModal();
+          (
+            document.getElementById("negeriListModal") as HTMLFormElement
+          ).showModal();
         }}
       >
         {getStateFromZone({ zone: selectedZone })}
