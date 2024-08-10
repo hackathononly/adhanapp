@@ -5,7 +5,7 @@ const { zone } = Astro.params;
 const currentZone = zone ? zone : Constants.defaultSettings.zone;
 ---
 
-<script type="module" define:vars={{ currentZone }}>
+<script is:inline type="module" define:vars={{ currentZone }}>
 	import { getPrayerTimeByZone } from "/src/util.ts";
 	function getClosestPrayerTime(filteredObject) {
 		// return closet prayer time with given time

@@ -11,9 +11,6 @@ type Props = {
 
 export default function SelectDaerah({ zones, state, currentZone }: Props) {
   const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
-  const selectedZone = $defaultWaktuSolatZone
-    ? $defaultWaktuSolatZone
-    : currentZone;
 
   return (
     <div id="daerahList">
@@ -56,8 +53,7 @@ export default function SelectDaerah({ zones, state, currentZone }: Props) {
                   className={
                     "inline-block text-xs flex-initial break-words " +
                     (zone.indexOf(currentZone) == 0
-                      ? //(zone.indexOf(selectedZone) == 0 ?
-                        "text-white"
+                      ? "text-white"
                       : "text-gray-500")
                   }
                 >
