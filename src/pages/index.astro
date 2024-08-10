@@ -8,7 +8,6 @@ const zones = Constants.defaultSettings.waktuSolatZones;
 
 const { zone } = Astro.params;
 const currentZone = zone ? zone : Constants.defaultSettings.zone;
-console.log(zones, "index");
 ---
 
 <Layout title={"adhan.app"} state={state} zones={zones} isIndex={true}>
