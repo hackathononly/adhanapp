@@ -23,10 +23,22 @@ export default function MainContent({ isIndex, currentZone }: Props) {
     ? $defaultWaktuSolatZone.zone || Constants.defaultSettings.zone
     : currentZone || Constants.defaultSettings.zone;
 
+  /*
+  interface PrayerTimeData {
+    hijri: string;
+    date: any;
+    day: string;
+  }
+*/
   //let [prayerTimeData, getPrayerTimeData] = useState<PrayerTime[]>([]);
   //let [prayerTimeData, getPrayerTimeData] = useState([]);
-  let [prayerTimeData, getPrayerTimeData] = useState<any[]>([]);
   //let [prayerTimeData, getPrayerTimeData] = useState<any | null>(null);
+  //let [prayerTimeData, getPrayerTimeData] = useState<any[]>([]);
+  const [prayerTimeData, getPrayerTimeData] = useState({
+    hijri: "",
+    date: "",
+    day: "",
+  });
 
   useEffect(() => {
     const loadPrayerTimeData = async () => {
