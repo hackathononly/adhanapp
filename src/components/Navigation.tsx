@@ -1,6 +1,5 @@
 import CollapseCheckbox from "./CollapseCheckbox";
 import SelectNegeri from "./SelectNegeri";
-import { useStore } from "@nanostores/react";
 import { defaultWaktuSolatZone } from "../store";
 
 type Props = {
@@ -16,8 +15,8 @@ export default function Navigation({
   isIndex,
   currentZone,
 }: Props) {
-  const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
-  const selectedZone = isIndex ? $defaultWaktuSolatZone : currentZone;
+  const $defaultWaktuSolatZone = defaultWaktuSolatZone.get();
+  const selectedZone = isIndex ? $defaultWaktuSolatZone.zone : currentZone;
 
   return (
     <nav className="sticky top-0 z-10">

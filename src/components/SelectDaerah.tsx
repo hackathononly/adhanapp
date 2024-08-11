@@ -1,4 +1,3 @@
-import { useStore } from "@nanostores/react";
 import { defaultWaktuSolatZone } from "../store";
 import FavouriteLocation from "../components/FavouriteLocation";
 import "../styles/animation.scss";
@@ -10,7 +9,7 @@ type Props = {
 };
 
 export default function SelectDaerah({ zones, state, currentZone }: Props) {
-  const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
+  const $defaultWaktuSolatZone = defaultWaktuSolatZone.get();
 
   return (
     <div id="daerahList">
@@ -35,7 +34,7 @@ export default function SelectDaerah({ zones, state, currentZone }: Props) {
                       data-zone={zone[0]}
                       type="checkbox"
                       defaultChecked={
-                        $defaultWaktuSolatZone == zone[0] ? true : false
+                        $defaultWaktuSolatZone.zone == zone[0] ? true : false
                       }
                     />
                     <label

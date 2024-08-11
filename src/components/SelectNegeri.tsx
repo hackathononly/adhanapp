@@ -1,4 +1,3 @@
-import { useStore } from "@nanostores/react";
 import { defaultWaktuSolatZone } from "../store";
 import { getStateFromZone } from "../util";
 import Constants from "../constants";
