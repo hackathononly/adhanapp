@@ -1,16 +1,15 @@
-import { useStore } from "@nanostores/react";
 import { isDefaultZoneSelected, defaultWaktuSolatZone } from "../store";
 
 export default function DefaultZoneToaster() {
-  const $isDefaultZoneSelected = useStore(isDefaultZoneSelected);
-  const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
+  const $isDefaultZoneSelected = isDefaultZoneSelected.get();
+  const $defaultWaktuSolatZone = defaultWaktuSolatZone.get();
 
   return $isDefaultZoneSelected ? (
     <>
       <div className="toast">
         <div className="alert alert-info">
           <span>
-            <strong>{$defaultWaktuSolatZone}</strong> has been set as{" "}
+            <strong>{$defaultWaktuSolatZone.zone}</strong> has been set as{" "}
             <a
               href="/"
               title="go to homepage"
