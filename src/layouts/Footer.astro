@@ -40,6 +40,7 @@ const currentZone = zone ? zone : Constants.defaultSettings.zone;
 		const closestTime = getClosestPrayerTime(filteredObject);
 
 		const tds = [...document.querySelectorAll("td")];
+		//console.log("sdasd111", filteredObject, closestTime, tds);
 		tds.map((td) => {
 			if (td.innerHTML.includes(closestTime)) {
 				td.closest("tr")?.classList.add("currentPrayerTime");

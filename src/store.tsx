@@ -1,23 +1,31 @@
+import Constants from "./constants";
 import { atom } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
-import type { ReadableAtom, WritableAtom } from "nanostores";
 
-function setLocalStorage(label: string) {
-  return persistentAtom<string>(label, "", {
-    encode: JSON.stringify,
-    decode(value) {
-      try {
-        return JSON.parse(value);
-      } catch (e) {
-        return value;
-      }
-    },
-  });
+interface DefaultWaktuSolatZone {
+  zone: string;
 }
 
-// default zone
-export const isDefaultZoneSelected = atom(false);
-export const defaultWaktuSolatZone = setLocalStorage("defaultWaktuSolatZone");
+export const defaultWaktuSolatZone = persistentAtom<DefaultWaktuSolatZone>(
+  "defaultWaktuSolatZone",
+  { zone: Constants.defaultSettings.zone },
+  {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+  },
+);
 
-// checkbox
-export const collapseCheckboxStatus = setLocalStorage("collapseCheckboxStatus");
+interface CollapseChecboxStatus {
+  status: string;
+}
+
+export const collapseCheckboxStatus = persistentAtom<CollapseChecboxStatus>(
+  "collapseCheckboxStatus",
+  { status: Constants.defaultSettings.collapseCheckboxStatus },
+  {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+  },
+);
+
+export const isDefaultZoneSelected = atom(false);

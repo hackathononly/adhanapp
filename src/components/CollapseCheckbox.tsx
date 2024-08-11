@@ -1,5 +1,4 @@
 import SelectDaerah from "./SelectDaerah";
-import { useStore } from "@nanostores/react";
 import { collapseCheckboxStatus } from "../store";
 import "../styles/CollapseCheckbox.scss";
 
@@ -16,17 +15,12 @@ export default function CollapseCheckbox({
   isIndex,
   currentZone,
 }: Props) {
-  const $collapseCheckboxStatus = useStore(collapseCheckboxStatus);
-
-  // set initial state
-  if ($collapseCheckboxStatus == "") {
-    collapseCheckboxStatus.set("close");
-  }
+  const $collapseCheckboxStatus = collapseCheckboxStatus.get();
 
   function handleCheckbox(event: any) {
     if ("checked" in event.target) {
       const checkedStatus = event.target.checked ? "open" : "close";
-      collapseCheckboxStatus.set(checkedStatus);
+      collapseCheckboxStatus.set({ status: checkedStatus });
     }
   }
 
@@ -41,7 +35,9 @@ export default function CollapseCheckbox({
           <input
             className="peer"
             type="checkbox"
-            defaultChecked={$collapseCheckboxStatus == "open" ? true : false}
+            defaultChecked={
+              $collapseCheckboxStatus.status == "open" ? true : false
+            }
             onChange={handleCheckbox}
           />
           <div className="collapse-title peer-checked:text-secondary-content"></div>

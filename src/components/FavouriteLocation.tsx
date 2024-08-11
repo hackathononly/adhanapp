@@ -17,7 +17,7 @@ export default function FavouriteLocation({
     );
     checkedOnce({ checkboxes: defaultZoneCheckbox });
     isDefaultZoneSelected.set(true);
-    defaultWaktuSolatZone.set(defaultwaktusolatzone);
+    defaultWaktuSolatZone.set({ zone: defaultwaktusolatzone });
   }
 
   return (

@@ -9,9 +9,9 @@ type Props = {
 };
 
 export default function SelectNegeri({ isIndex, currentZone }: Props) {
-  const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
+  const $defaultWaktuSolatZone = defaultWaktuSolatZone.get();
   const selectedZone = isIndex
-    ? $defaultWaktuSolatZone || Constants.defaultSettings.zone
+    ? $defaultWaktuSolatZone.zone || Constants.defaultSettings.zone
     : currentZone;
 
   return (

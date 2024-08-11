@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-// import type { ReadableAtom, WritableAtom } from "nanostores";
-import { useStore } from "@nanostores/react";
 import { defaultWaktuSolatZone } from "../store";
 import Constants from "../constants";
 
@@ -19,9 +17,10 @@ type Props = {
 };
 
 export default function MainContent({ isIndex, currentZone }: Props) {
-  const $defaultWaktuSolatZone = useStore(defaultWaktuSolatZone);
+  const $defaultWaktuSolatZone = defaultWaktuSolatZone.get();
+
   const zone = isIndex
-    ? $defaultWaktuSolatZone || Constants.defaultSettings.zone
+    ? $defaultWaktuSolatZone.zone || Constants.defaultSettings.zone
     : currentZone || Constants.defaultSettings.zone;
 
   //let [prayerTimeData, getPrayerTimeData] = useState<PrayerTime[]>([]);
