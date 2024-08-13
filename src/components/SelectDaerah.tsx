@@ -22,7 +22,7 @@ export default function SelectDaerah({ zones, state, currentZone }: Props) {
     defaultWaktuSolatZone.set({ zone: e.currentTarget.dataset.zone });
     toast.success(
       <span>
-        <b>{$defaultWaktuSolatZone.zone}</b> is set as default waktu solat zone
+        <b>{e.currentTarget.dataset.zone}</b> is set as default waktu solat zone
       </span>,
       {
         position: "bottom-right",
