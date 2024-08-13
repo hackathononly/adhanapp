@@ -1,5 +1,5 @@
 ---
-import DefaultZoneToaster from "../components/DefaultZoneToaster";
+import { Toaster } from "react-hot-toast";
 import Navigation from "../components/Navigation";
 import Footer from "../layouts/Footer.astro";
 import "../styles/main.scss";
@@ -35,7 +35,7 @@ const { zone } = Astro.params;
 		/>
 		<main>
 			<slot />
-			<DefaultZoneToaster client:only="react" />
+			<Toaster client:only="react" />
 		</main>
 		<Footer />
 	</body>
