@@ -1,5 +1,4 @@
 import Constants from "./constants";
-import { atom } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
 
 interface DefaultWaktuSolatZone {
@@ -27,5 +26,3 @@ export const collapseCheckboxStatus = persistentAtom<CollapseChecboxStatus>(
     decode: JSON.parse,
   },
 );
-
-export const isDefaultZoneSelected = atom(false);
