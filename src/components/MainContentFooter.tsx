@@ -8,7 +8,7 @@ export default function MainContentFooter() {
         tabIndex={0}
         className="dropdown-content z-10 menu p-2 shadow bg-base-200 rounded-box w-52"
       >
-        <li>
+        <li className="hidden">
           <label className="cursor-pointer label">
             <input
               type="checkbox"
@@ -19,7 +19,7 @@ export default function MainContentFooter() {
             <span className="label-text">toggle theme</span>
           </label>
         </li>
-        <li>
+        <li className="hidden">
           <label className="cursor-pointer label">
             <input
               type="checkbox"
@@ -30,8 +30,8 @@ export default function MainContentFooter() {
             <span className="label-text">minimal mode</span>
           </label>
         </li>
-        <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-        <li>
+        <hr className="hidden h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+        <li className="hidden">
           <label className="cursor-pointer label">
             <input
               name="worksonffline"
@@ -43,18 +43,19 @@ export default function MainContentFooter() {
             <span className="label-text">works offline</span>
           </label>
         </li>
-        <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+        <hr className="hidden h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
         <li>
           <label className="cursor-pointer label">
-            <a href="">
+            <a href="https://ahmad.build">
               <img
                 className="rounded-box"
                 width="20"
                 height="20"
                 src="/aa-favicon.ico"
                 alt="ahmad.build"
-              />
+              />{" "}
             </a>
+            ahmad.build
           </label>
         </li>
         <li>
@@ -68,6 +69,7 @@ export default function MainContentFooter() {
                 alt="AdhanApp Github"
               />
             </a>
+            GitHub
           </label>
         </li>
       </ul>

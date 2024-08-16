@@ -78,7 +78,7 @@ export default function MainContent({ isIndex, currentZone }: Props) {
         </ul>
         <MainContentFooter />
       </div>
-      <div className="rounded-box border-2 col-span-3 sm:col-span-6 lg:col-span-6">
+      <div className="overflow-hidden rounded-box border-2 col-span-3 sm:col-span-6 lg:col-span-6">
         <PrayerTimeTable data={data} />
       </div>
       <div className="p-4 col-span-3 sm:col-span-3 lg:col-span-3">

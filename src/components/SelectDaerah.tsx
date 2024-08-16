@@ -1,5 +1,6 @@
 import { defaultWaktuSolatZone } from "../store";
-import FavouriteLocation from "./FavouriteLocation";
+import { toast } from "react-hot-toast";
+import { checkedOnce } from "../util";
 import "../styles/animation.scss";
 
 type Props = {
@@ -10,6 +11,25 @@ type Props = {
 
 export default function SelectDaerah({ zones, state, currentZone }: Props) {
   const $defaultWaktuSolatZone = defaultWaktuSolatZone.get();
+  const setDefaultWaktuSolatZone = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    const currentTarget = e.currentTarget.getAttribute("data-zone");
+    const defaultZoneCheckbox = document.querySelectorAll(
+      ".defaultZoneCheckbox",
+    );
+    checkedOnce({ checkboxes: defaultZoneCheckbox });
+    defaultWaktuSolatZone.set({ zone: currentTarget });
+    toast.success(
+      <span>
+        <b>{currentTarget}</b> is set as default waktu solat zone
+      </span>,
+      {
+        position: "bottom-right",
+      },
+    );
+  };
   return (
     <div id="daerahList">
       <div className="overflow-y-auto w-max">
@@ -21,30 +41,29 @@ export default function SelectDaerah({ zones, state, currentZone }: Props) {
               className="w-48 relative stat pt-0 pb-0"
             >
               <div className="stat-figure text-gray-400 bg-base-300">
-                <FavouriteLocation defaultwaktusolatzone={zone[0]}>
-                  <button
-                    title={"Set " + zone[0] + " as default waktu solat zone"}
-                    className="absolute bottom-0 left-6 z-50"
-                    type="submit"
+                <button
+                  title={"Set " + zone[0] + " as default waktu solat zone"}
+                  className="absolute bottom-0 left-6 z-50"
+                  onClick={setDefaultWaktuSolatZone}
+                  data-zone={zone[0]}
+                >
+                  <input
+                    className="defaultZoneCheckbox"
+                    id={"toggle-heart_" + zone[0]}
+                    data-zone={zone[0]}
+                    type="checkbox"
+                    defaultChecked={
+                      $defaultWaktuSolatZone.zone == zone[0] ? true : false
+                    }
+                  />
+                  <label
+                    htmlFor={"toggle-heart_" + zone[0]}
+                    aria-label="like"
+                    className="inline-block px-2 -ml-2 stroke-current"
                   >
-                    <input
-                      className="defaultZoneCheckbox"
-                      id={"toggle-heart_" + zone[0]}
-                      data-zone={zone[0]}
-                      type="checkbox"
-                      defaultChecked={
-                        $defaultWaktuSolatZone.zone == zone[0] ? true : false
-                      }
-                    />
-                    <label
-                      htmlFor={"toggle-heart_" + zone[0]}
-                      aria-label="like"
-                      className="inline-block w-2 h-2 stroke-current"
-                    >
-                      <span className="text-sm">♥</span>
-                    </label>{" "}
-                  </button>{" "}
-                </FavouriteLocation>
+                    <span className="text-sm">♥</span>
+                  </label>{" "}
+                </button>{" "}
               </div>
               <a className="pb-6" href={"/" + state + "/" + zone[0]}>
                 <span

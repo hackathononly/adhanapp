@@ -1,60 +1,8 @@
 ---
-import Constants from "../constants";
 
-const { zone } = Astro.params;
-const currentZone = zone ? zone : Constants.defaultSettings.zone;
 ---
 
-<script is:inline type="module" define:vars={{ currentZone }}>
-	import { getPrayerTimeByZone } from "/src/util.ts";
-	function getClosestPrayerTime(filteredObject) {
-		// return closet prayer time with given time
-
-		const currentDate = new Date(),
-			currentTime = currentDate.getTime();
-
-		// Convert each time value to timestamp and calculate the difference
-		let closestTime = "";
-		let minDifference = Infinity;
-		for (const key in filteredObject) {
-			if (Object.hasOwnProperty.call(filteredObject, key)) {
-				const timeString = filteredObject[key];
-				const [hours, minutes, seconds] = timeString.split(/:| /);
-				let time = new Date();
-				time.setHours(hours);
-				time.setMinutes(minutes);
-				time.setSeconds(seconds);
-				const timeValue = time.getTime();
-				const difference = Math.abs(currentTime - timeValue);
-				if (difference < minDifference) {
-					minDifference = difference;
-					closestTime = key;
-				}
-			}
-		}
-		return closestTime;
-	}
-
-	async function highlightClosestPrayerTime() {
-		const { ...filteredObject } = await getPrayerTimeByZone(currentZone);
-		const closestTime = getClosestPrayerTime(filteredObject);
-
-		const tds = [...document.querySelectorAll("td")];
-		tds.map((td) => {
-			if (td.innerHTML.includes(closestTime)) {
-				td.closest("tr")?.classList.add("currentPrayerTime");
-			}
-		});
-	}
-
-	document.addEventListener(
-		"DOMContentLoaded",
-		highlightClosestPrayerTime,
-		false,
-	);
-</script>
-
-<footer class="nav p-6 text-base-content sticky top-[100vh]" <aside>
+<footer class="nav p-6 text-base-content sticky top-[100vh]">
 	<a class="hidden inline-block2 text-xs" href="/" title="back to home">
 		adhan.app
 	</a>

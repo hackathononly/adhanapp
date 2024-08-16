@@ -64,10 +64,12 @@ interface PrayerTimeZoneParams {
 }
 
 export async function getPrayerTimeByZone({ zone }: PrayerTimeZoneParams) {
+  const currentDate = new Date();
   const currentZone =
     zone === undefined ? Constants.defaultSettings.zone : zone;
-  const allDatas = await import(`./prayertimes/2024/${currentZone}.json`);
-  //const allDatas = await import(`./prayertimes/2024/${zone}.json`);
+  const allDatas = await import(
+    `./prayertimes/${currentDate.getFullYear()}/${currentZone}.json`
+  );
 
   const prayerTimeData = allDatas.default[0].prayerTime;
   let prayerTime: any = {};
@@ -81,19 +83,39 @@ export async function getPrayerTimeByZone({ zone }: PrayerTimeZoneParams) {
   return prayerTime;
 }
 
-/*
-export async function highlightClosestPrayerTime() {
-  const { hijri, date, day, ...filteredObject } = await getPrayerTimeDatas();
-  const closestTime = getClosestPrayerTime(filteredObject);
-
-  const tds = [...document.querySelectorAll("td")];
-  tds.map((td) => {
-    if (td.innerHTML.includes(closestTime)) {
-      td.closest("tr")?.classList.add("currentPrayerTime");
-    }
-  });
+interface ClosestPrayerTimeParams {
+  filteredData: any;
 }
-*/
+
+export function getClosestPrayerTime({
+  filteredData,
+}: ClosestPrayerTimeParams) {
+  // return closet prayer time with given time
+
+  const currentDate = new Date(),
+    currentTime = currentDate.getTime();
+
+  // Convert each time value to timestamp and calculate the difference
+  let closestTime = "";
+  let minDifference = Infinity;
+  for (const key in filteredData) {
+    if (Object.hasOwnProperty.call(filteredData, key)) {
+      const timeString = filteredData[key];
+      const [hours, minutes, seconds] = timeString.split(/:| /);
+      let time = new Date();
+      time.setHours(hours);
+      time.setMinutes(minutes);
+      time.setSeconds(seconds);
+      const timeValue = time.getTime();
+      const difference = Math.abs(currentTime - timeValue);
+      if (difference < minDifference) {
+        minDifference = difference;
+        closestTime = key;
+      }
+    }
+  }
+  return closestTime;
+}
 
 interface CheckedOnceParams {
   checkboxes: any;
@@ -101,7 +123,7 @@ interface CheckedOnceParams {
 
 export function checkedOnce({ checkboxes }: CheckedOnceParams) {
   checkboxes.forEach((checkbox: any) => {
-    checkbox.addEventListener("change", function (this: HTMLInputElement) {
+    checkbox.addEventListener("change", function(this: HTMLInputElement) {
       if (this.checked) {
         checkboxes.forEach((cb: any) => {
           if (cb !== this) {
