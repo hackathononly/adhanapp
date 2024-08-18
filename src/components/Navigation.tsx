@@ -19,8 +19,8 @@ export default function Navigation({
   const selectedZone = isIndex ? $defaultWaktuSolatZone.zone : currentZone;
 
   return (
-    <nav className="sticky top-0 z-10">
-      <section className="py-2 nav bg-base-100">
+    <nav className="sticky top-0 z-10 bg-base-100">
+      <section className="py-2 nav">
         <div className="absolute z-10">
           <div className="flex home">
             <a className="m-auto text-sm" href="/" title="back to home">
