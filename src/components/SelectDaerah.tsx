@@ -20,7 +20,10 @@ export default function SelectDaerah({ zones, state, currentZone }: Props) {
     defaultWaktuSolatZone.set({ zone: currentTarget });
     toast.success(
       <span>
-        <b>{currentTarget}</b> is set as default waktu solat zone
+        <b>{currentTarget}</b> is set as{" "}
+        <a className="underline" href="/">
+          default waktu solat zone
+        </a>
       </span>,
       {
         position: "top-center",
