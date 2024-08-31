@@ -1,12 +1,15 @@
-import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+import robotsTxt from "astro-robots-txt";
+import webmanifest from "astro-webmanifest";
+
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://adhanapp.pages.dev",
+  site: "https://adhan.app",
   integrations: [
     tailwind({
       applyBaseStyles: false,
@@ -14,5 +17,18 @@ export default defineConfig({
     mdx(),
     sitemap(),
     react(),
+    webmanifest({
+      name: "AdhanApp",
+      icon: "/favicon.svg",
+      short_name: "AA",
+      description: "Malaysia's Prayer Times",
+      start_url: "/",
+      theme_color: "#ffb86c",
+      background_color: "#ffb86c",
+      display: "standalone",
+    }),
+    robotsTxt({
+      sitemap: ["https://adhan.app/sitemap-index.xml"],
+    }),
   ],
 });

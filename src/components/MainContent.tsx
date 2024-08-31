@@ -53,7 +53,7 @@ export default function MainContent({ isIndex, currentZone }: Props) {
     loadPrayerTimeData();
   }, []);
 
-  const { hijri, date, day, ...data } = prayerTimeData;
+  const { hijri, date, day, ...datas } = prayerTimeData;
 
   return prayerTimeData ? (
     <div className="nav pt-8 grid grid-cols-3 sm:grid-cols-12 lg:grid-cols-12 gap-10">
@@ -79,7 +79,7 @@ export default function MainContent({ isIndex, currentZone }: Props) {
         <MainContentFooter />
       </div>
       <div className="overflow-hidden rounded-box border-2 col-span-3 sm:col-span-6 lg:col-span-6">
-        <PrayerTimeTable data={data} />
+        <PrayerTimeTable datas={datas} />
       </div>
       <div className="p-4 col-span-3 sm:col-span-3 lg:col-span-3">
         <RandomTazkirah />

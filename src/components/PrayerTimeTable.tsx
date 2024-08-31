@@ -2,11 +2,23 @@ import "../styles/PrayerTimeTable.scss";
 import { timeString12hr, getClosestPrayerTime } from "../util";
 
 type Props = {
-  data: Object;
+  datas: Object;
 };
 
-export default function PrayerTimeTable({ data }: Props) {
-  const closetPrayerTime = getClosestPrayerTime({ filteredData: data });
+export default function PrayerTimeTable({ datas }: Props) {
+  const closetPrayerTime = getClosestPrayerTime({ filteredData: datas });
+
+  const dummydata = {
+    imsak: "00:00:00",
+    fajr: "00:00:00",
+    syuruk: "00:00:00",
+    dhuhr: "00:00:00",
+    asr: "00:00:00",
+    maghrib: "00:00:00",
+    isha: "00:00:00",
+  };
+
+  const data = Object.keys(datas).length == 0 ? dummydata : datas;
 
   return (
     <div className="overflow-x-auto">
