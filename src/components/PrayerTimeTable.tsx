@@ -6,7 +6,7 @@ type Props = {
 };
 
 export default function PrayerTimeTable({ datas }: Props) {
-  const closetPrayerTime = getClosestPrayerTime({ filteredData: datas });
+  const closestPrayerTime = getClosestPrayerTime({ filteredData: datas });
 
   const dummydata = {
     imsak: "00:00:00",
@@ -34,7 +34,7 @@ export default function PrayerTimeTable({ datas }: Props) {
             <tr
               key={prayername}
               className={
-                closetPrayerTime == prayername ? "currentPrayerTime" : ""
+                closestPrayerTime == prayername ? "currentPrayerTime" : ""
               }
             >
               <td>{prayername}</td>

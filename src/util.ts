@@ -36,7 +36,7 @@ export function getFormattedDate() {
 
   const currentDate = new Date(),
     dd = String(currentDate.getDate()).padStart(2, "0"),
-    month = currentDate.toLocaleString("default", { month: "short" }),
+    month = currentDate.toLocaleString("en-US", { month: "short" }),
     year = currentDate.getFullYear(),
     formattedDate = `${dd}-${month}-${year}`;
 
@@ -90,7 +90,7 @@ interface ClosestPrayerTimeParams {
 export function getClosestPrayerTime({
   filteredData,
 }: ClosestPrayerTimeParams) {
-  // return closet prayer time with given time
+  // return closest prayer time with given time
 
   const currentDate = new Date(),
     currentTime = currentDate.getTime();
@@ -123,7 +123,7 @@ interface CheckedOnceParams {
 
 export function checkedOnce({ checkboxes }: CheckedOnceParams) {
   checkboxes.forEach((checkbox: any) => {
-    checkbox.addEventListener("change", function(this: HTMLInputElement) {
+    checkbox.addEventListener("change", function (this: HTMLInputElement) {
       if (this.checked) {
         checkboxes.forEach((cb: any) => {
           if (cb !== this) {

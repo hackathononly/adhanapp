@@ -34,7 +34,7 @@ export default function MainContent({ isIndex, currentZone }: Props) {
   //let [prayerTimeData, getPrayerTimeData] = useState([]);
   //let [prayerTimeData, getPrayerTimeData] = useState<any | null>(null);
   //let [prayerTimeData, getPrayerTimeData] = useState<any[]>([]);
-  const [prayerTimeData, getPrayerTimeData] = useState({
+  let [prayerTimeData, getPrayerTimeData] = useState({
     hijri: "",
     date: "",
     day: "",
