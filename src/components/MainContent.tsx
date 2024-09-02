@@ -6,6 +6,7 @@ import RandomTazkirah from "./RandomTazkirah";
 import PrayerTimeTable from "./PrayerTimeTable";
 import MainContentFooter from "./MainContentFooter";
 import {
+  getCurrentTime,
   convertDateMonthDay,
   getPrayerTimeByZone,
   getLocationFromZone,
@@ -23,17 +24,6 @@ export default function MainContent({ isIndex, currentZone }: Props) {
     ? $defaultWaktuSolatZone.zone || Constants.defaultSettings.zone
     : currentZone || Constants.defaultSettings.zone;
 
-  /*
-  interface PrayerTimeData {
-    hijri: string;
-    date: any;
-    day: string;
-  }
-*/
-  //let [prayerTimeData, getPrayerTimeData] = useState<PrayerTime[]>([]);
-  //let [prayerTimeData, getPrayerTimeData] = useState([]);
-  //let [prayerTimeData, getPrayerTimeData] = useState<any | null>(null);
-  //let [prayerTimeData, getPrayerTimeData] = useState<any[]>([]);
   let [prayerTimeData, getPrayerTimeData] = useState({
     hijri: "",
     date: "",
@@ -54,19 +44,24 @@ export default function MainContent({ isIndex, currentZone }: Props) {
   }, []);
 
   const { hijri, date, day, ...datas } = prayerTimeData;
+  const isKeyExist = (data: string) => {
+    return Object.keys(data).length == 0 ? "" : data;
+  };
 
   return prayerTimeData ? (
     <div className="nav pt-8 grid grid-cols-3 sm:grid-cols-12 lg:grid-cols-12 gap-10">
       <div className="relative p-4 col-span-3 sm:col-span-3 lg:col-span-3 sm:text-right lg:text-right">
         <h3 className="text-lg">{getLocationFromZone({ zone: zone })}</h3>
         <ul className="flexs pt-6 text-xs text-gray-400">
-          <li className="w-full hidden">{hijri}</li>
+          <li className="w-full hidden">{isKeyExist(hijri)}</li>
           <li className="w-full2 pb-4">
             <a href="/" className="selectedFrequent">
               <span className="block pb-2">Today</span>
-              {date ? convertDateMonthDay({ dateString: date }) : date}
+              {Object.keys(date).length == 0
+                ? getCurrentTime()
+                : convertDateMonthDay({ dateString: date })}
               <br />
-              {day}
+              {isKeyExist(day)}
             </a>
           </li>
           <li className={isIndex ? "hidden" : "w-full pb-4 text-gray-500"}>

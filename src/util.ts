@@ -34,7 +34,8 @@ export function convertDateMonthDay({ dateString }: ConvertDateMonthDayParams) {
 export function getFormattedDate() {
   // return date in full format, e.g. 09-Jun-2024
 
-  const currentDate = new Date(),
+  //const currentDate = new Date(),
+  const currentDate = getCurrentDate(),
     dd = String(currentDate.getDate()).padStart(2, "0"),
     month = currentDate.toLocaleString("en-US", { month: "short" }),
     year = currentDate.getFullYear(),
@@ -64,7 +65,8 @@ interface PrayerTimeZoneParams {
 }
 
 export async function getPrayerTimeByZone({ zone }: PrayerTimeZoneParams) {
-  const currentDate = new Date();
+  // const currentDate = new Date();
+  const currentDate = getCurrentDate();
   const currentZone =
     zone === undefined ? Constants.defaultSettings.zone : zone;
   const allDatas = await import(
@@ -87,13 +89,23 @@ interface ClosestPrayerTimeParams {
   filteredData: any;
 }
 
+export function getCurrentDate() {
+  const currentDate = new Date();
+  return currentDate;
+}
+
+export function getCurrentTime() {
+  return getCurrentDate().getTime();
+}
+
 export function getClosestPrayerTime({
   filteredData,
 }: ClosestPrayerTimeParams) {
   // return closest prayer time with given time
 
-  const currentDate = new Date(),
-    currentTime = currentDate.getTime();
+  //const currentDate = new Date(),
+  // currentTime = currentDate.getTime();
+  const currentTime = getCurrentTime();
 
   // Convert each time value to timestamp and calculate the difference
   let closestTime = "";
@@ -102,11 +114,13 @@ export function getClosestPrayerTime({
     if (Object.hasOwnProperty.call(filteredData, key)) {
       const timeString = filteredData[key];
       const [hours, minutes, seconds] = timeString.split(/:| /);
-      let time = new Date();
+      // let time = new Date();
+      let time = getCurrentDate();
       time.setHours(hours);
       time.setMinutes(minutes);
       time.setSeconds(seconds);
-      const timeValue = time.getTime();
+      //const timeValue = time.getTime();
+      const timeValue = getCurrentTime();
       const difference = Math.abs(currentTime - timeValue);
       if (difference < minDifference) {
         minDifference = difference;
