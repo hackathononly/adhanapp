@@ -65,7 +65,6 @@ interface PrayerTimeZoneParams {
 }
 
 export async function getPrayerTimeByZone({ zone }: PrayerTimeZoneParams) {
-  // const currentDate = new Date();
   const currentDate = getCurrentDate();
   const currentZone =
     zone === undefined ? Constants.defaultSettings.zone : zone;
@@ -94,18 +93,13 @@ export function getCurrentDate() {
   return currentDate;
 }
 
-export function getCurrentTime() {
-  return getCurrentDate().getTime();
-}
-
 export function getClosestPrayerTime({
   filteredData,
 }: ClosestPrayerTimeParams) {
   // return closest prayer time with given time
 
-  //const currentDate = new Date(),
-  // currentTime = currentDate.getTime();
-  const currentTime = getCurrentTime();
+  const currentDate = getCurrentDate(),
+    currentTime = currentDate.getTime();
 
   // Convert each time value to timestamp and calculate the difference
   let closestTime = "";
@@ -114,13 +108,13 @@ export function getClosestPrayerTime({
     if (Object.hasOwnProperty.call(filteredData, key)) {
       const timeString = filteredData[key];
       const [hours, minutes, seconds] = timeString.split(/:| /);
-      // let time = new Date();
+
       let time = getCurrentDate();
       time.setHours(hours);
       time.setMinutes(minutes);
       time.setSeconds(seconds);
-      //const timeValue = time.getTime();
-      const timeValue = getCurrentTime();
+
+      const timeValue = time.getTime();
       const difference = Math.abs(currentTime - timeValue);
       if (difference < minDifference) {
         minDifference = difference;

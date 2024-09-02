@@ -6,7 +6,7 @@ import RandomTazkirah from "./RandomTazkirah";
 import PrayerTimeTable from "./PrayerTimeTable";
 import MainContentFooter from "./MainContentFooter";
 import {
-  getCurrentTime,
+  getCurrentDate,
   convertDateMonthDay,
   getPrayerTimeByZone,
   getLocationFromZone,
@@ -58,7 +58,7 @@ export default function MainContent({ isIndex, currentZone }: Props) {
             <a href="/" className="selectedFrequent">
               <span className="block pb-2">Today</span>
               {Object.keys(date).length == 0
-                ? getCurrentTime()
+                ? getCurrentDate().getTime()
                 : convertDateMonthDay({ dateString: date })}
               <br />
               {isKeyExist(day)}
