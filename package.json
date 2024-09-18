@@ -15,7 +15,7 @@
     "@astrojs/mdx": "^3.1.6",
     "@astrojs/react": "^3.6.2",
     "@astrojs/sitemap": "^3.1.6",
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/tailwind": "^5.1.1",
     "@nanostores/persistent": "^0.10.2",
     "@nanostores/react": "^0.7.3",
     "@types/react": "^18.3.7",
@@ -28,13 +28,13 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.11",
+    "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
     "daisyui": "^4.12.10",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
-    "sass": "^1.78.0"
+    "sass": "^1.79.1"
   }
 }
