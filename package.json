@@ -11,16 +11,16 @@
     "fmt": "./node_modules/prettier/bin/prettier.cjs --write ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
+    "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.7",
     "@astrojs/react": "^3.6.2",
-    "@astrojs/sitemap": "^3.1.6",
+    "@astrojs/sitemap": "^3.2.0",
     "@astrojs/tailwind": "^5.1.1",
     "@nanostores/persistent": "^0.10.2",
     "@nanostores/react": "^0.8.0",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
-    "astro": "^4.15.10",
+    "astro": "^4.15.11",
     "astro-robots-txt": "^1.0.0",
     "astro-webmanifest": "^1.0.0",
     "nanostores": "^0.11.3",
@@ -32,7 +32,7 @@
     "typescript": "^5.6.2"
   },
   "devDependencies": {
-    "daisyui": "^4.12.11",
+    "daisyui": "^4.12.12",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "sass": "^1.79.4"
