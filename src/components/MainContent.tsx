@@ -44,6 +44,8 @@ export default function MainContent({ isIndex, currentZone }: Props) {
   }, []);
 
   const { hijri, date, day, ...datas } = prayerTimeData;
+  console.log(date, day);
+  
   const isKeyExist = (data: string) => {
     return Object.keys(data).length == 0 ? "" : data;
   };
