@@ -15,7 +15,7 @@ export function getStateFromZone({ zone }: LocationFromZoneParams) {
 export function getLocationFromZone({ zone }: LocationFromZoneParams) {
   // Get array of location from passed zone, e.g. ['Pulau Aur']
 
-  return Object.entries(Constants.locations).map(([state, value]: any) => {
+  return Object.entries(Constants.locations).map(([value]: any) => {
     return Object.prototype.hasOwnProperty.call(value, zone) ? value[zone] : "";
   });
 }

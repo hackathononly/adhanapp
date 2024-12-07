@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import { Toaster } from "react-hot-toast";
 import Navigation from "../components/Navigation";
 import Footer from "../layouts/Footer.astro";
@@ -32,7 +32,7 @@ const { zone } = Astro.params;
 			src="https://cloud.umami.is/script.js"
 			data-website-id="170a0c1b-cf8b-42d5-86b1-74c50f0ebdf5"></script>
 		<title>{title}</title>
-		<ViewTransitions />
+		<ClientRouter />
 	</head>
 	<body class="min-h-screen" tabindex="0">
 		<Navigation
