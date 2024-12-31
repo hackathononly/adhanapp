@@ -23,7 +23,7 @@ for (const state in Constants.locations) {
       console.log(`Fetched ${prayertimes} prayertimes`);
 
       // const filename = getFileName("../2024", zone);
-      const filename = getFileName("./src/prayertimes/2024", zone);
+      const filename = getFileName("./src/prayertimes/2025", zone);
 
       // if (!fs.existsSync(filename)) {
       //     console.log("Creating a new prayertime cache file for", filename);
